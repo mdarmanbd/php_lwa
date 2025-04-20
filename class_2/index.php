@@ -48,9 +48,9 @@ $Area = 1475700;
 
 // echo var_dump((is_nan($Area)));
 
-$a = 1;
-$b = -4;
-$c = '-8';
+// $a = 1;
+// $b = -4;
+// $c = '-8';
 
 // echo var_dump(is_nan(sqrt(-12)));
 // echo var_dump(is_numeric($c));
@@ -66,3 +66,47 @@ $c = '-8';
 // echo ceil(25.14);
 // echo floor(13.966);
 
+// const 
+
+// define("pi", "3.1416"); 
+// echo pi;
+// define("pi", "6.154");
+
+$a = 4;
+$b = 2;
+// $age = 25;
+// $compare = ($age > 10);
+// echo var_dump($compare);
+
+// echo ($a + $b);
+// echo ($a - $b);
+// echo ($a * $b);
+// echo ($a / $b);
+// echo ($a % $b);
+// echo ($a ** $b);
+// echo pow($a , $b);
+// $a -= 3;
+// echo $a;
+
+// echo var_dump($a == $b);
+// echo var_dump($a < $b);
+
+// echo $a++;
+// echo $a;
+
+// echo ++$a;
+
+// echo var_dump(($a==4 && $b==2));
+// echo var_dump(($a==40 || $b==2));
+// var_dump($a==40 xor $b==20);
+
+// Ternary
+// echo ($a == 10 ? "This is ten" : "Not a ten");
+
+// $c = ($b == 2 ? "This is two" : (($b == 5) ? "This is five" : (($b == 6) ? "This is six number" : "Unknown number : $b")));
+
+// echo $c;
+
+$city = "undefiend";
+$result = $city ?? "Dhaka";
+echo $result;

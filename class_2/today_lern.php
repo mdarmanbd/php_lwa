@@ -24,4 +24,4 @@
 // rand()
 // ceil()
 // floor()
-
+// const, define(), operator, Assignment operator, Comparison Operator, Increment/Decrement Operator, Ternary
