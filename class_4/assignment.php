@@ -112,16 +112,75 @@
 // $array = ["Dhaka", "Rajshahi", "Barisal"];
 // $count = 0;
 
-// for ($i = 0; $i < count($array); $i++) {
+// for($i = 0; $i < count($array); $i++){
 //     $word = strtolower($array[$i]);
-//     for ($j = 0; $j < strlen($word); $j++) {
-//         $char = $word[$j];
-//         if ($char == "a" || $char == "e" || $char == "i" || $char == "o" || $char == "u") {
+//     for($j = 0; $j < strlen($word); $j++){
+//         $letter = $word[$j];
+//         if($letter == 'a' || $letter == 'e' || $letter == 'i' || $letter == 'o' || $letter == 'u'){
 //             $count++;
 //         }
 //     }
 // }
 
 // echo $count;
+
+
+// 11. Print only odd numbers and their square
+// $array = [3, 6, 7, 10, 13];
+
+// for($i = 0; $i < count($array); $i++){
+//     if($array[$i] % 2 !== 0){
+//         $num = $array[$i];
+//         echo $num . " : " . ($num ** 2) . "<br>";
+//     }
+// }
+
+// 12. Show each student’s name with length of name
+
+// $array = ["Hasan", "Tania", "Rifat"];
+
+// for($i = 0; $i < count($array); $i++){
+//     $nameLength = strlen($array[$i]);
+//     echo $array[$i] . " : " . $nameLength . "<br>";
+// }
+
+
+// 13. Print each letter of every name
+
+// $array = ["Ali", "Sara"];
+// for($i = 0; $i < count($array); $i++){
+//     $character = str_split($array[$i]);
+//     for($j = 0; $j < count($character); $j++){
+//         echo "<pre>";
+//         print_r($character[$j]);
+//         echo "</pre>";
+//     }
+// }
+
+// 14. Print first letters of each word in array
+
+// $array = ["Green", "Red", "Yellow"];
+
+// for($i = 0; $i < count($array); $i++){
+//     $name = str_split($array[$i]);
+//     echo "<pre>";
+//     print_r( $name[0]);
+//     echo "</pre>";
+// }
+
+// 15. Check if a name exists in an array 
+
+// $array = ["Sabbir", "Mahi", "Rifat"];
+
+// for($i = 0; $i < count($array); $i++){
+//     if($array[$i] == "Mahi"){
+//         echo "Found";
+//     }
+// }
+
+
+
+
+
 
 ?>
