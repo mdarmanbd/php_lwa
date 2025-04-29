@@ -65,6 +65,7 @@ if(isset($_POST['form1'])){
     </div>
 
     <h3>Edit Student</h3>
+
     <?php 
     if(isset($error_message)){
     ?>
@@ -85,7 +86,7 @@ if(isset($_POST['form1'])){
     }
     ?>
     
-
+    
     <form action=" " method="post" style="width:50%" border="0" cellpadding="1" cellspacing="1">
         <table>
             <tr>
