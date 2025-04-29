@@ -1,5 +1,10 @@
 <?php 
+include 'config.php';
 
-echo "Delete page";
+$statement = $pdo->prepare("DELETE FROM students WHERE id=?");
+$statement->execute([$_REQUEST['id']]);
+header("location: index.php");
+exit();
+
 
 ?>

@@ -43,6 +43,8 @@ if(isset($_POST['form1']))
 $statement = $pdo->prepare("SELECT * FROM students WHERE id=?");
 $statement->execute([$_REQUEST['id']]);
 $result = $statement->fetch(PDO::FETCH_ASSOC);
+
+
 ?>
 
 <!DOCTYPE html>
