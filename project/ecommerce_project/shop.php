@@ -4,7 +4,7 @@
 <div class="breadcrumb">
     <div class="container">
         <ul class="list-unstyled d-flex align-items-center m-0">
-            <li><a href="">Home</a></li>
+            <li><a href="<?php echo BASE_URL;?>">Home</a></li>
             <li class="ml_10 mr_10">
                 <i class="fas fa-chevron-right"></i>
             </li>
@@ -43,27 +43,24 @@
                     </div>
                     <div class="collection-product-container">
                         <div class="row">
-
-
-
                             <div class="col-lg-4 col-md-6 col-6">
                                 <div class="new-item">
                                     <div class="product-card">
                                         <div class="product-card-img">
-                                            <a class="hover-switch" href="product.php">
-                                                <img class="primary-img" src="assets/img/products/bags/1.jpg" alt="">
+                                            <a class="hover-switch" href="<?php echo BASE_URL;?>product.php">
+                                                <img class="primary-img" src="<?php echo BASE_URL;?>assets/img/products/bags/1.jpg" alt="">
                                             </a>
 
                                             <div class="product-card-action product-card-action-2">
                                                 <a href="#" class="addtocart-btn btn-primary">ADD TO CART</a>
                                             </div>
 
-                                            <a href="wishlist.php" class="wishlist-btn card-wishlist">
+                                            <a href="<?php echo BASE_URL;?>wishlist.php" class="wishlist-btn card-wishlist">
                                                 <i class="far fa-heart" style="color:#000;font-size:20px;"></i>
                                             </a>
                                         </div>
                                         <div class="product-card-details text-center">
-                                            <h3 class="product-card-title"><a href="product.php">black backpack</a>
+                                            <h3 class="product-card-title"><a href="<?php echo BASE_URL;?>product.php">black backpack</a>
                                             </h3>
                                             <div class="product-card-price">
                                                 <span class="card-price-regular">৳1529</span>
@@ -74,26 +71,24 @@
                                 </div>
                             </div>
 
-
-
                             <div class="col-lg-4 col-md-6 col-6">
                                 <div class="new-item">
                                     <div class="product-card">
                                         <div class="product-card-img">
-                                            <a class="hover-switch" href="product.php">
-                                                <img class="primary-img" src="assets/img/products/bags/2.jpg" alt="">
+                                            <a class="hover-switch" href="<?php echo BASE_URL;?>product.php">
+                                                <img class="primary-img" src="<?php echo BASE_URL;?>assets/img/products/bags/2.jpg" alt="">
                                             </a>
 
                                             <div class="product-card-action product-card-action-2">
                                                 <a href="#" class="addtocart-btn btn-primary">ADD TO CART</a>
                                             </div>
 
-                                            <a href="wishlist.php" class="wishlist-btn card-wishlist">
+                                            <a href="<?php echo BASE_URL;?>wishlist.php" class="wishlist-btn card-wishlist">
                                                 <i class="far fa-heart" style="color:#000;font-size:20px;"></i>
                                             </a>
                                         </div>
                                         <div class="product-card-details text-center">
-                                            <h3 class="product-card-title"><a href="product.php">lady handbag</a>
+                                            <h3 class="product-card-title"><a href="<?php echo BASE_URL;?>product.php">lady handbag</a>
                                             </h3>
                                             <div class="product-card-price">
                                                 <span class="card-price-regular">৳529</span>
@@ -104,27 +99,24 @@
                                 </div>
                             </div>
 
-
-
-
                             <div class="col-lg-4 col-md-6 col-6">
                                 <div class="new-item">
                                     <div class="product-card">
                                         <div class="product-card-img">
-                                            <a class="hover-switch" href="product.php">
-                                                <img class="primary-img" src="assets/img/products/bags/3.jpg" alt="">
+                                            <a class="hover-switch" href="<?php echo BASE_URL;?>product.php">
+                                                <img class="primary-img" src="<?php echo BASE_URL;?>assets/img/products/bags/3.jpg" alt="">
                                             </a>
 
                                             <div class="product-card-action product-card-action-2">
                                                 <a href="#" class="addtocart-btn btn-primary">ADD TO CART</a>
                                             </div>
 
-                                            <a href="wishlist.php" class="wishlist-btn card-wishlist">
+                                            <a href="<?php echo BASE_URL;?>wishlist.php" class="wishlist-btn card-wishlist">
                                                 <i class="far fa-heart" style="color:#000;font-size:20px;"></i>
                                             </a>
                                         </div>
                                         <div class="product-card-details text-center">
-                                            <h3 class="product-card-title"><a href="product.php">men travel bag</a>
+                                            <h3 class="product-card-title"><a href="<?php echo BASE_URL;?>product.php">men travel bag</a>
                                             </h3>
                                             <div class="product-card-price">
                                                 <span class="card-price-regular">৳529</span>
@@ -135,25 +127,24 @@
                                 </div>
                             </div>
 
-
                             <div class="col-lg-4 col-md-6 col-6">
                                 <div class="new-item">
                                     <div class="product-card">
                                         <div class="product-card-img">
-                                            <a class="hover-switch" href="product.php">
-                                                <img class="primary-img" src="assets/img/products/bags/4.jpg" alt="">
+                                            <a class="hover-switch" href="<?php echo BASE_URL;?>product.php">
+                                                <img class="primary-img" src="<?php echo BASE_URL;?>assets/img/products/bags/4.jpg" alt="">
                                             </a>
 
                                             <div class="product-card-action product-card-action-2">
                                                 <a href="#" class="addtocart-btn btn-primary">ADD TO CART</a>
                                             </div>
 
-                                            <a href="wishlist.php" class="wishlist-btn card-wishlist">
+                                            <a href="<?php echo BASE_URL;?>wishlist.php" class="wishlist-btn card-wishlist">
                                                 <i class="far fa-heart" style="color:#000;font-size:20px;"></i>
                                             </a>
                                         </div>
                                         <div class="product-card-details text-center">
-                                            <h3 class="product-card-title"><a href="product.php">nike legend
+                                            <h3 class="product-card-title"><a href="<?php echo BASE_URL;?>product.php">nike legend
                                                     stripe</a>
                                             </h3>
                                             <div class="product-card-price">
@@ -164,26 +155,24 @@
                                 </div>
                             </div>
 
-
-
                             <div class="col-lg-4 col-md-6 col-6">
                                 <div class="new-item">
                                     <div class="product-card">
                                         <div class="product-card-img">
-                                            <a class="hover-switch" href="product.php">
-                                                <img class="primary-img" src="assets/img/products/bags/5.jpg" alt="">
+                                            <a class="hover-switch" href="<?php echo BASE_URL;?>product.php">
+                                                <img class="primary-img" src="<?php echo BASE_URL;?>assets/img/products/bags/5.jpg" alt="">
                                             </a>
 
                                             <div class="product-card-action product-card-action-2">
                                                 <a href="#" class="addtocart-btn btn-primary">ADD TO CART</a>
                                             </div>
 
-                                            <a href="wishlist.php" class="wishlist-btn card-wishlist">
+                                            <a href="<?php echo BASE_URL;?>wishlist.php" class="wishlist-btn card-wishlist">
                                                 <i class="far fa-heart" style="color:#000;font-size:20px;"></i>
                                             </a>
                                         </div>
                                         <div class="product-card-details text-center">
-                                            <h3 class="product-card-title"><a href="product.php">nike legend
+                                            <h3 class="product-card-title"><a href="<?php echo BASE_URL;?>product.php">nike legend
                                                     stripe</a>
                                             </h3>
                                             <div class="product-card-price">
@@ -194,25 +183,24 @@
                                 </div>
                             </div>
 
-
                             <div class="col-lg-4 col-md-6 col-6">
                                 <div class="new-item">
                                     <div class="product-card">
                                         <div class="product-card-img">
-                                            <a class="hover-switch" href="product.php">
-                                                <img class="primary-img" src="assets/img/products/bags/6.jpg" alt="">
+                                            <a class="hover-switch" href="<?php echo BASE_URL;?>product.php">
+                                                <img class="primary-img" src="<?php echo BASE_URL;?>assets/img/products/bags/6.jpg" alt="">
                                             </a>
 
                                             <div class="product-card-action product-card-action-2">
                                                 <a href="#" class="addtocart-btn btn-primary">ADD TO CART</a>
                                             </div>
 
-                                            <a href="wishlist.php" class="wishlist-btn card-wishlist">
+                                            <a href="<?php echo BASE_URL;?>wishlist.php" class="wishlist-btn card-wishlist">
                                                 <i class="far fa-heart" style="color:#000;font-size:20px;"></i>
                                             </a>
                                         </div>
                                         <div class="product-card-details text-center">
-                                            <h3 class="product-card-title"><a href="product.php">nike legend
+                                            <h3 class="product-card-title"><a href="<?php echo BASE_URL;?>product.php">nike legend
                                                     stripe</a>
                                             </h3>
                                             <div class="product-card-price">
@@ -223,25 +211,24 @@
                                 </div>
                             </div>
 
-
                             <div class="col-lg-4 col-md-6 col-6">
                                 <div class="new-item">
                                     <div class="product-card">
                                         <div class="product-card-img">
-                                            <a class="hover-switch" href="product.php">
-                                                <img class="primary-img" src="assets/img/products/bags/7.jpg" alt="">
+                                            <a class="hover-switch" href="<?php echo BASE_URL;?>product.php">
+                                                <img class="primary-img" src="<?php echo BASE_URL;?>assets/img/products/bags/7.jpg" alt="">
                                             </a>
 
                                             <div class="product-card-action product-card-action-2">
                                                 <a href="#" class="addtocart-btn btn-primary">ADD TO CART</a>
                                             </div>
 
-                                            <a href="wishlist.php" class="wishlist-btn card-wishlist">
+                                            <a href="<?php echo BASE_URL;?>wishlist.php" class="wishlist-btn card-wishlist">
                                                 <i class="far fa-heart" style="color:#000;font-size:20px;"></i>
                                             </a>
                                         </div>
                                         <div class="product-card-details text-center">
-                                            <h3 class="product-card-title"><a href="product.php">women vanity
+                                            <h3 class="product-card-title"><a href="<?php echo BASE_URL;?>product.php">women vanity
                                                     bag</a>
                                             </h3>
                                             <div class="product-card-price">
@@ -252,25 +239,24 @@
                                 </div>
                             </div>
 
-
                             <div class="col-lg-4 col-md-6 col-6">
                                 <div class="new-item">
                                     <div class="product-card">
                                         <div class="product-card-img">
-                                            <a class="hover-switch" href="product.php">
-                                                <img class="primary-img" src="assets/img/products/bags/8.jpg" alt="">
+                                            <a class="hover-switch" href="<?php echo BASE_URL;?>product.php">
+                                                <img class="primary-img" src="<?php echo BASE_URL;?>assets/img/products/bags/8.jpg" alt="">
                                             </a>
 
                                             <div class="product-card-action product-card-action-2">
                                                 <a href="#" class="addtocart-btn btn-primary">ADD TO CART</a>
                                             </div>
 
-                                            <a href="wishlist.php" class="wishlist-btn card-wishlist">
+                                            <a href="<?php echo BASE_URL;?>wishlist.php" class="wishlist-btn card-wishlist">
                                                 <i class="far fa-heart" style="color:#000;font-size:20px;"></i>
                                             </a>
                                         </div>
                                         <div class="product-card-details text-center">
-                                            <h3 class="product-card-title"><a href="product.php">women large bag</a>
+                                            <h3 class="product-card-title"><a href="<?php echo BASE_URL;?>product.php">women large bag</a>
                                             </h3>
                                             <div class="product-card-price">
                                                 <span class="card-price-regular">৳529</span>
@@ -280,25 +266,24 @@
                                 </div>
                             </div>
 
-
                             <div class="col-lg-4 col-md-6 col-6">
                                 <div class="new-item">
                                     <div class="product-card">
                                         <div class="product-card-img">
-                                            <a class="hover-switch" href="product.php">
-                                                <img class="primary-img" src="assets/img/products/bags/8.jpg" alt="">
+                                            <a class="hover-switch" href="<?php echo BASE_URL;?>product.php">
+                                                <img class="primary-img" src="<?php echo BASE_URL;?>assets/img/products/bags/8.jpg" alt="">
                                             </a>
 
                                             <div class="product-card-action product-card-action-2">
                                                 <a href="#" class="addtocart-btn btn-primary">ADD TO CART</a>
                                             </div>
 
-                                            <a href="wishlist.php" class="wishlist-btn card-wishlist">
+                                            <a href="<?php echo BASE_URL;?>wishlist.php" class="wishlist-btn card-wishlist">
                                                 <i class="far fa-heart" style="color:#000;font-size:20px;"></i>
                                             </a>
                                         </div>
                                         <div class="product-card-details text-center">
-                                            <h3 class="product-card-title"><a href="product.php">women large bag</a>
+                                            <h3 class="product-card-title"><a href="<?php echo BASE_URL;?>product.php">women large bag</a>
                                             </h3>
                                             <div class="product-card-price">
                                                 <span class="card-price-regular">৳529</span>
@@ -307,10 +292,8 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
-
 
                     <div class="pagination justify-content-center mt-100">
                         <nav>
@@ -342,8 +325,6 @@
                             </ul>
                         </nav>
                     </div>
-
-
                 </div>
                 <!-- product area end -->
 
@@ -371,7 +352,6 @@
                                 </span>
                             </div>
                         </div>
-
 
                         <div class="filter-widget">
                             <div class="filter-header faq-heading heading_18 d-flex align-items-center justify-content-between border-bottom"
@@ -476,7 +456,6 @@
                             </div>
                         </div>
                         
-                        
                         <div class="filter-widget">
                             <div class="filter-header faq-heading heading_18 d-flex align-items-center justify-content-between border-bottom"
                                 data-bs-toggle="collapse" data-bs-target="#filter-vendor">
@@ -544,7 +523,6 @@
                             </div>
                         </div>
                         
-                        
                         <!-- Add this script at the end of your HTML -->
                         <script>
                         document.addEventListener('DOMContentLoaded', function() {
@@ -573,9 +551,6 @@
                             });
                         });
                         </script>
-
-
-
 
                     </div>
                 </div>

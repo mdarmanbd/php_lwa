@@ -1,15 +1,16 @@
-    <script src="dist/js/jquery-3.6.3.min.js"></script>
-    <script src="dist/js/bootstrap.min.js"></script>
-    <script src="dist/js/feather.min.js"></script>
-    <script src="dist/js/jquery.dataTables.min.js"></script>
-    <script src="dist/js/dataTables.bootstrap5.min.js"></script>
-    <script src="dist/tinymce/tinymce.min.js"></script>
-    <script src="dist/js/select2.min.js"></script>
-    <script src="dist/js/custom.js"></script>
+    <script src="<?php echo ADMIN_URL;?>dist/js/jquery-3.6.3.min.js"></script>
+    <script src="<?php echo ADMIN_URL;?>dist/js/bootstrap.min.js"></script>
+    <script src="<?php echo ADMIN_URL;?>dist/js/feather.min.js"></script>
+    <script src="<?php echo ADMIN_URL;?>dist/js/jquery.dataTables.min.js"></script>
+    <script src="<?php echo ADMIN_URL;?>dist/js/dataTables.bootstrap5.min.js"></script>
+    <script src="<?php echo ADMIN_URL;?>dist/tinymce/tinymce.min.js"></script>
+    <script src="<?php echo ADMIN_URL;?>dist/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="<?php echo ADMIN_URL;?>dist/js/custom.js"></script>
 
 
     <?php if($cur_page == 'index.php'): ?>
-    <script src="dist/js/chart.min.js"></script>
+    <script src="<?php echo ADMIN_URL;?>dist/js/chart.min.js"></script>
     <script>
         // Graphs
         const ctx = document.getElementById('myChart');
@@ -72,6 +73,57 @@
         });
     </script>
     <?php endif; ?>
+
+    <?php
+
+        if(isset($error_message)){
+
+            ?>
+
+            <script>
+                Swal.fire({
+                title: 'Error!',
+                text:  '<?php echo $error_message; ?>',
+                icon: 'error',
+                // confirmButtonText: 'Cool'
+                })
+            </script>
+
+            <?php
+            }
+        ?>
+
+        <?php 
+            if(isset($_SESSION["success_message"])){
+
+                ?>
+                
+                    <script>
+
+                        const Toast = Swal.mixin({
+                        toast: true,
+                        position: "top-end",
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.onmouseenter = Swal.stopTimer;
+                            toast.onmouseleave = Swal.resumeTimer;
+                        }
+                        });
+                        Toast.fire({
+                        icon: "success",
+                        title: "<?php echo $_SESSION['success_message']; ?>"
+                        });
+
+                    </script>
+
+                <?php
+            }
+            unset($_SESSION['success_message']);
+        ?>
+
+
 </body>
 
 </html>

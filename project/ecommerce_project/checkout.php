@@ -1,10 +1,11 @@
 <?php include 'header.php'; ?>
+<?php echo BASE_URL;?>
 
 <!-- breadcrumb start -->
 <div class="breadcrumb">
     <div class="container">
         <ul class="list-unstyled d-flex align-items-center m-0">
-            <li><a href="index.php">Home</a></li>
+            <li><a href="<?php echo BASE_URL;?>">Home</a></li>
             <li class="ml_10 mr_10">
                 <i class="fas fa-chevron-right"></i>
             </li>
@@ -93,7 +94,7 @@
                                     
                                     <button type="submit" class="checkout-page-btn btn-primary mt_20">CONFIRM ORDER</button>
                                     <div class="mt_20">
-                                        <a href="cart.php" style="color:#F0686E;text-decoration:underline;">Back to Cart</a>
+                                        <a href="<?php echo BASE_URL;?>cart.php" style="color:#F0686E;text-decoration:underline;">Back to Cart</a>
                                     </div>
                                 </div>
                             </div>

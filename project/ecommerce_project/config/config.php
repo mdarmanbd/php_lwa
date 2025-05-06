@@ -11,6 +11,9 @@ try{
     echo "Connection error :" . $e->getMessage();
 }
 
+define('BASE_URL', 'http://localhost/php_lwa/project/ecommerce_project/');
+define('ADMIN_URL',BASE_URL.'admin/');
+
 define('SMTP_HOST', 'sandbox.smtp.mailtrap.io');
 define('SMTP_PORT', '2525');
 define('SMTP_USERNAME', 'f203c5a48a952a');
