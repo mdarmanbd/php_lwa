@@ -34,6 +34,9 @@
                 throw new Exception ("message field should not be empty");
             }
 
+            $q = $pdo->prepare("SELECT * FROM admins WHERE id=?");
+            $q->execute([1]);
+            $result = $q->fetch(PDO::FETCH_ASSOC);
             
             $mail = new PHPMailer(true);
         
@@ -46,7 +49,7 @@
             $mail->Port = SMTP_PORT;
 
             $mail->setFrom(SMTP_FROM);
-            $mail->addAddress('md.armantext@gmail.com');
+            $mail->addAddress($result['email']);
             $mail->addReplyTo(SMTP_FROM);
             
             $mail_message = '<h2>Visitor Information</h2>';

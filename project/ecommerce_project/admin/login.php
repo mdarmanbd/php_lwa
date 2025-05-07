@@ -18,7 +18,7 @@
                 throw new Exception ("password field should not be empty");
             }
 
-            $hasPassword = password_hash($password, PASSWORD_DEFAULT);
+            // $hasPassword = password_hash($password, PASSWORD_DEFAULT);
 
             $q = $pdo->prepare("SELECT * FROM admins WHERE email=? AND status=?");
             $q->execute([$email,'Active']);
@@ -28,9 +28,9 @@
                 throw new Exception("Email is not found");
             }
 
-            $result = $q->fetch(PDO::FETCH_ASSOC);
+            $result = $q->fetchAll(PDO::FETCH_ASSOC);
             foreach ($result as $row) {
-                if(!password_verify($hasPassword, $row['password'])) {
+                if(!password_verify($password, $row['password'])) {
                     throw new Exception("Password does not match");
                 }
             }                                                                                                                                                                                         
@@ -38,7 +38,7 @@
 
             $_SESSION['admin'] = $result;
             $_SESSION["success_message"] = "Successfuly Loged in";
-            header('location: '.ADMIN_URL);   
+            header('location: '.ADMIN_URL);
 
             exit;
 
