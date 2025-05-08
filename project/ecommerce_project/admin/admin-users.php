@@ -27,21 +27,41 @@
                         <tbody>
 
                             <?php 
-
+                                $i = 0;
                                 $q = $pdo->prepare("SELECT * FROM admins ORDER BY id ASC");
                                 $q->execute();
                                 $result = $q->fetchAll(PDO::FETCH_ASSOC);
                                 foreach($result as $row){
+                                    $i++;
                                     ?>
                                         <tr>
-                                            <td><?php echo $row['id'];?></td>
+                                            <td><?php echo $i;?></td>
                                             <td><?php echo $row['name'];?></td>
                                             <td><?php echo $row['email'];?></td>
-                                            <td><?php echo $row['role'];?></td>
-                                            <td><?php echo $row['status'];?></td>
                                             <td>
-                                                <a href="" class="btn btn-warning btn-sm">Edit</a>
-                                                <a href="" class="btn btn-danger btn-sm">Delete</a>
+
+                                                <?php if($row['role'] == 'Super Admin'):?>
+                                                <span class="badge bg-primary">Super Admin</span>
+                                                <?php elseif($row['role'] == 'Admin'): ?>
+                                                <span class="badge bg-success">Admin</span>
+                                                <?php elseif($row['role'] == 'Moderator'): ?>
+                                                <span class="badge bg-warning">Moderator</span>
+                                                <?php endif; ?>
+
+                                            </td>
+                                            <td>
+                                                
+                                                <?php if($row['status'] == 'Active'):?>
+                                                <span class="badge bg-warning">Active</span>
+                                                <?php else: ?>
+                                                <span class="badge bg-danger">Inactive</span>
+                                                <?php endif; ?>
+
+                                            </td>
+                                            <td>
+                                                <a href="<?php echo ADMIN_URL;?>admin-user-edit.php?id=<?php echo $row['id'];?>" class="btn btn-warning btn-sm">Edit</a>
+                                                <a href="#" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
+
                                             </td>
                                         </tr>
                                     <?php
