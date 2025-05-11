@@ -8,12 +8,14 @@
                     Dashboard
                 </a>
             </li>
+            <?php if($_SESSION['admin'][0]['role'] == 'Super Admin' || $_SESSION['admin'][0]['role'] == 'Admin'):?>
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo ADMIN_URL;?>admin-users.php">
                     <span data-feather="file-text" class="align-text-bottom"></span>
                     Admins users
                 </a>
             </li>
+            <?php endif; ?>
 
             <!-- <li class="nav-item dd-item">
                 <a class="nav-link dd-link collapsed" data-bs-toggle="collapse" data-delay="0"

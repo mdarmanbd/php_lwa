@@ -176,4 +176,10 @@
     }, 3000);
   })
 
+  $(document).ready(function() {
+    $('#myInput').attr('autocomplete', 'off');
+  });
+
 })(jQuery);
+
+

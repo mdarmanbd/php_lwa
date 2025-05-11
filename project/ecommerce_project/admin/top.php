@@ -1,6 +1,5 @@
 
 
-
 <header class="navbar navbar-custom-color sticky-top bg-dark flex-md-nowrap p-0 shadow">
     <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="<?php echo ADMIN_URL;?>">Admin Panel</a>
     <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse"
@@ -10,7 +9,7 @@
     </button>
     <div class="navbar-nav flex-row">
         <div class="nav-item text-nowrap">
-            <a class="nav-link px-3" href="javascript:void;">Logged in as <?php print_r($_SESSION['admin'][1]); ?></a>
+            <a class="nav-link px-3" href="javascript:void;">Logged in as <?php echo($_SESSION['admin'][0]['name']); ?>(<?php echo($_SESSION['admin'][0]['role']); ?>) </a>
         </div>
         <div class="nav-item text-nowrap">
             <a class="nav-link px-3" href="<?php echo ADMIN_URL;?>profile.php"><i class="fas fa-user"></i> Edit Profile</a>

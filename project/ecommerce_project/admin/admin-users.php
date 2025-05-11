@@ -1,6 +1,15 @@
 <?php include 'header.php';?>
 <?php include 'top.php'; ?>
 
+<?php
+
+// print_r($_SESSION['admin'][0]);
+if($_SESSION['admin'][0]['role'] == 'Moderator'){
+    header('location:'.ADMIN_URL.'index.php');
+}
+?>
+
+
     <div class="right-part container-fluid">
         <div class="row">
             <?php include 'sidebar.php'; ?>
@@ -32,7 +41,13 @@
                                 $q->execute();
                                 $result = $q->fetchAll(PDO::FETCH_ASSOC);
                                 foreach($result as $row){
+                                    
+
+                                    if($row['role'] == 'Super Admin' || $row['role'] == 'Admin'){
+                                        continue;
+                                    }
                                     $i++;
+
                                     ?>
                                         <tr>
                                             <td><?php echo $i;?></td>
@@ -59,9 +74,11 @@
 
                                             </td>
                                             <td>
-                                                <a href="<?php echo ADMIN_URL;?>admin-user-edit.php?id=<?php echo $row['id'];?>" class="btn btn-warning btn-sm">Edit</a>
-                                                <a href="#" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
 
+                                                <?php if($row['role'] != 'Super Admin'):?>
+                                                <a href="<?php echo ADMIN_URL;?>admin-user-edit.php?id=<?php echo $row['id'];?>" class="btn btn-warning btn-sm">Edit</a>
+                                                <a href="<?php echo ADMIN_URL;?>admin-user-delete.php?id=<?php echo $row['id'];?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
+                                                <?php endif; ?>
                                             </td>
                                         </tr>
                                     <?php

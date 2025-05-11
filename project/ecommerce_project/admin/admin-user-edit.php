@@ -1,12 +1,30 @@
 <?php include 'header.php'; ?>
 <?php include 'top.php'; ?>
 
+
+
 <?php 
+
 
     $q = $pdo->prepare("SELECT * FROM admins WHERE id=?");
     $q->execute([$_REQUEST['id']]);
-    $total = $q->rowCount();
-    if(!$total){
+    $r = $q->fetch(PDO::FETCH_ASSOC);
+    if($r['role'] == 'Super Admin'){
+        header('location:'.ADMIN_URL.'admin-users.php');
+        exit;
+    }
+
+   
+    // admin can not edit any admin data here.
+     if($_SESSION['admin'][0]['role'] == 'Admin'){
+        if($r['role'] == 'Admin') {
+            header('location:'.ADMIN_URL.'admin-users.php');
+            exit;
+        }
+     }
+
+    // // moderator can not edit any admin or moderator data here.
+    if($_SESSION['admin'][0]['role'] == 'Moderator'){
         header('location:'.ADMIN_URL.'admin-users.php');
         exit;
     }
@@ -68,6 +86,9 @@
     $statement->execute([$_REQUEST['id']]);
     $result = $statement->fetch(PDO::FETCH_ASSOC);
 
+    // problem 
+    // print_r($_SESSION['admin']['role']);
+
 
 ?>
 
@@ -75,7 +96,7 @@
     <div class="right-part container-fluid">
         <div class="row">
             <?php include 'sidebar.php'; ?>
-
+            
             <main class="col-md-9 ms-sm-auto col-lg-9 px-md-4 pb-3">
 
                 <h1 class="page-heading">
