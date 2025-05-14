@@ -60,9 +60,6 @@ use PHPMailer\PHPMailer\Exception;
             $mail->Body = $email_message;
             $mail->send();
             
-           
-            
-
             $_SESSION['success_message'] = 'An email has been sent to your email address.please check your 
             inbox';
 

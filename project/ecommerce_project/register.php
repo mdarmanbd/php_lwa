@@ -52,7 +52,7 @@
             $statement->execute([$name,$email,$final_password,$token,'Inactive']);
 
            
-            $link =BASE_URL.'register-verify.php?email='.$email.'$token='.$token;
+            $link =BASE_URL.'register-verify.php?email='.$email.'&token='.$token;
             $email_message = 'please click on the link below to verify your email address: <br>';
             $email_message .='<a href="'.$link.'">Verify Email</a>';
             
@@ -76,7 +76,7 @@
             
              $_SESSION["success_message"] = "Message sent successfuly";
             
-            header('location:'.BASE_URL);
+            header('location:'.BASE_URL.'login.php');
             exit;
 
 

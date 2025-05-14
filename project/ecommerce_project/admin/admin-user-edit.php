@@ -53,6 +53,13 @@
                 throw new Exception('Please enter a valid email');
             }
 
+            $sta = $pdo->prepare("SELECT * FROM admins WHERE email=? AND id!=?");
+            $sta->execute([$email,$_REQUEST['id']]);
+            $totla = $sta->rowCount();
+            if($total){
+                throw new Exception('Email already exists');
+            }
+
             $q = $pdo->prepare("SELECT * FROM admins WHERE id=?");
             $q->execute([$_REQUEST['id']]);
             $existing_data = $q->fetch(PDO::FETCH_ASSOC);

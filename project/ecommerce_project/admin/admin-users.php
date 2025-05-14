@@ -42,11 +42,20 @@ if($_SESSION['admin'][0]['role'] == 'Moderator'){
                                 $result = $q->fetchAll(PDO::FETCH_ASSOC);
                                 foreach($result as $row){
                                     
-
-                                    if($row['role'] == 'Super Admin' || $row['role'] == 'Admin'){
+                                    if($row['role'] == 'Super Admin') {
                                         continue;
                                     }
-                                    $i++;
+
+                                    if($_SESSION['admin'][0]['role'] == 'Moderator') {
+                                        continue;
+                                    }
+
+                                    if($_SESSION['admin'][0]['role'] == 'Admin') {
+                                        if($row['role'] == 'Admin') {
+                                            continue;
+                                        }
+                                    }
+                                     $i++;
 
                                     ?>
                                         <tr>

@@ -10,6 +10,8 @@ use PHPMailer\PHPMailer\Exception;
 
 require 'vendor/autoload.php';
 
+$cur_page = substr($_SERVER["SCRIPT_NAME"],strrpos($_SERVER["SCRIPT_NAME"],"/")+1);
+
 
 ?>
 
@@ -106,10 +108,18 @@ require 'vendor/autoload.php';
                     <div class="col-lg-3 d-lg-block d-none">
                         <div class="announcement-meta-wrapper d-flex align-items-center justify-content-end">
                             <div class="announcement-meta d-flex align-items-center">
+
+                                <?php if(isset($_SESSION['user'])): ?>
+                                <a class="announcement-login announcement-text text-white" href="<?php echo BASE_URL;?>user-dashboard.php">
+                                    <i class="fas fa-home"></i>
+                                    <span>User Dashboard</span>
+                                </a>
+                                <?php else: ?>
                                 <a class="announcement-login announcement-text text-white" href="<?php echo BASE_URL;?>login.php">
                                     <i class="far fa-user"></i>
                                     <span>User Login</span>
                                 </a>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>

@@ -33,8 +33,12 @@
                 if(!password_verify($password, $row['password'])) {
                     throw new Exception("Password does not match");
                 }
-            }                                                                                                                                                                                         
-        
+            } 
+            
+            // $result = $q->fetch(PDO::FETCH_ASSOC);
+            // if(!password_verify($password, $result['password'])) {
+            //         throw new Exception("Password does not match");
+            //     }
 
             $_SESSION['admin'] = $result;
             $_SESSION["success_message"] = "Successfuly Loged in";
