@@ -90,7 +90,7 @@ use PHPMailer\PHPMailer\Exception;
 
                 <h1 class="page-heading">
                     Create Admin User
-                    <a href="<?php echo ADMIN_URL;?>admin-users-php" class="btn btn-primary btn-sm right"><i class="fas fa-eye"></i> Show All</a>
+                    <a href="<?php echo ADMIN_URL;?>admin-users.php" class="btn btn-primary btn-sm right"><i class="fas fa-eye"></i> Show All</a>
                 </h1>
                 <form action="" method="post">
                     <div class="row">
