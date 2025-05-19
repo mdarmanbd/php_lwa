@@ -34,9 +34,9 @@
             // image_resize($path_tmp,$destination,400,500);
 
             $filename = 'category_'.time().".".$extension;
-$destination = '../uploads/' . $filename;
+            $destination = '../uploads/' . $filename;
 
-move_uploaded_file($path_tmp, $destination);
+            move_uploaded_file($path_tmp, $destination);
 
 
             $statement = $pdo->prepare("INSERT INTO categories (name,photo,item_order) VALUES (?,?,?)");

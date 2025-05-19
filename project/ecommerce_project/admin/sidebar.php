@@ -27,6 +27,14 @@
             </li>
             <?php endif; ?>
 
+            <li class="nav-item">
+                <a class="nav-link" href="<?php echo ADMIN_URL; ?>product-view.php">
+                    <span data-feather="file-text" class="align-text-bottom"></span>
+                    Product
+                </a>
+            </li>
+           
+
 
             <!-- <li class="nav-item dd-item">
                 <a class="nav-link dd-link collapsed" data-bs-toggle="collapse" data-delay="0"

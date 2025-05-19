@@ -26,7 +26,6 @@ if(isset($_POST['form1'])) {
             throw new Exception('Please enter item order');
         }
 
-
         $path = $_FILES['photo']['name'];
         $path_tmp = $_FILES['photo']['tmp_name'];
 
@@ -40,12 +39,12 @@ if(isset($_POST['form1'])) {
                 throw new Exception('Invalid Photo Type');
             }
 
+            $filename = 'category_'.time().".".$extension;
            
         }
 
-        $filename = 'category_'.time().".".$extension;
+        // $filename = 'category_'.time().".".$extension;
         $destination = '../uploads/' . $filename;
-
         move_uploaded_file($path_tmp, $destination);
 
         $statement = $pdo->prepare("UPDATE categories SET name=?,photo=?,item_order=? WHERE id=?");
