@@ -1,6 +1,14 @@
 <?php include 'header.php'; ?>
 <?php include 'top.php'; ?>
 
+<?php
+
+if($_SESSION['admin'][0]['role'] == 'Moderator'){
+    header('location:'.ADMIN_URL.'index.php');
+}
+
+?>
+
 <?php 
 
     if(isset($_POST['form1'])){

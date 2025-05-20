@@ -3,10 +3,10 @@
 
 <?php
 
-// print_r($_SESSION['admin'][0]);
 if($_SESSION['admin'][0]['role'] == 'Moderator'){
     header('location:'.ADMIN_URL.'index.php');
 }
+
 ?>
 
 

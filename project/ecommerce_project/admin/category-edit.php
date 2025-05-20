@@ -2,6 +2,14 @@
 <?php include 'top.php'; ?>
 
 <?php
+
+if($_SESSION['admin'][0]['role'] == 'Moderator'){
+    header('location:'.ADMIN_URL.'index.php');
+}
+
+?>
+
+<?php
 $statement = $pdo->prepare("SELECT * FROM categories WHERE id=?");
 $statement->execute([$_REQUEST['id']]);
 $existing_data = $statement->fetch(PDO::FETCH_ASSOC);
