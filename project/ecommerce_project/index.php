@@ -129,7 +129,7 @@
     </div>
     <!-- banner end -->
 
-    <!-- collection start -->
+    <!-- popular start -->
     <div class="featured-collection mt-100 overflow-hidden">
         <div class="collection-tab-inner">
             <div class="container">
@@ -137,210 +137,58 @@
                     <h2 class="section-heading">Popular Products</h2>
                 </div>
                 <div class="row">
-                    <div class="col-lg-3 col-md-6 col-6">
-                        <div class="product-card">
-                            <div class="product-card-img">
-                                <a class="hover-switch" href="<?php echo BASE_URL;?>product.php">
-                                    <img class="primary-img" src="<?php echo BASE_URL;?>assets/img/products/bags/1.jpg" alt="">
-                                </a>
 
-                                <div class="product-card-action product-card-action-2">
-                                    <a href="#" class="addtocart-btn btn-primary">ADD TO CART</a>
-                                </div>
+                <?php 
+                    $q = $pdo->prepare("SELECT * FROM products ORDER BY total_sales DESC LIMIT 4");
+                    $q->execute();
+                    $result = $q->fetchAll(PDO::FETCH_ASSOC);
+                    foreach ($result as $row) {
+                        ?>
 
-                                <a href="<?php echo BASE_URL;?>wishlist.php" class="wishlist-btn card-wishlist">
-                                    <i class="far fa-heart" style="color:#000;font-size:20px;"></i>
-                                </a>
-                            </div>
-                            <div class="product-card-details text-center">
-                                <h3 class="product-card-title"><a href="<?php echo BASE_URL;?>product.php">black backpack</a>
-                                </h3>
-                                <div class="product-card-price">
-                                    <span class="card-price-regular">৳1529</span>
-                                    <span class="card-price-compare text-decoration-line-through">৳1759</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-6">
-                        <div class="product-card">
-                            <div class="product-card-img">
-                                <a class="hover-switch" href="<?php echo BASE_URL;?>product.php">
-                                    <img class="primary-img" src="<?php echo BASE_URL;?>assets/img/products/bags/2.jpg" alt="">
-                                </a>
+                            <div class="col-lg-3 col-md-6 col-6">
+                                <div class="product-card">
+                                    <div class="product-card-img">
+                                        <a class="hover-switch" href="<?php echo BASE_URL;?>product.php?slug=<?php echo $row['slug']; ?>">
+                                            <img class="primary-img" src="<?php echo BASE_URL;?>uploads/<?php echo $row['featured_photo'] ?>" alt="">
+                                        </a>
 
-                                <div class="product-card-action product-card-action-2">
-                                    <a href="#" class="addtocart-btn btn-primary">ADD TO CART</a>
-                                </div>
+                                        <div class="product-card-action product-card-action-2">
+                                            <a href="#" class="addtocart-btn btn-primary">ADD TO CART</a>
+                                        </div>
 
-                                <a href="wishlist.php" class="wishlist-btn card-wishlist">
-                                    <i class="far fa-heart" style="color:#000;font-size:20px;"></i>
-                                </a>
-                            </div>
-                            <div class="product-card-details text-center">
-                                <h3 class="product-card-title"><a href="<?php echo BASE_URL;?>product.php">lady handbag</a>
-                                </h3>
-                                <div class="product-card-price">
-                                    <span class="card-price-regular">৳529</span>
-                                    <span class="card-price-compare text-decoration-line-through">৳759</span>
+                                        <a href="<?php echo BASE_URL;?>wishlist.php" class="wishlist-btn card-wishlist">
+                                            <i class="far fa-heart" style="color:#000;font-size:20px;"></i>
+                                        </a>
+                                    </div>
+                                    <div class="product-card-details text-center">
+                                        <h3 class="product-card-title"><a href="<?php echo BASE_URL;?>product.php"><?php echo $row['slug']; ?></a>
+                                        </h3>
+                                        <div class="product-card-price">
+                                            <span class="card-price-regular"> <?php echo $row['sale_price']; ?> </span>
+                                            <?php if($row['regular_price'] !== $row['sale_price']): ?>
+                                            <span class="card-price-compare text-decoration-line-through"><?php echo $row['regular_price']; ?></span>
+                                            <?php endif; ?>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-6">
-                        <div class="product-card">
-                            <div class="product-card-img">
-                                <a class="hover-switch" href="<?php echo BASE_URL;?>product.php">
-                                    <img class="primary-img" src="<?php echo BASE_URL;?>/img/products/bags/3.jpg" alt="">
-                                </a>
 
-                                <div class="product-card-action product-card-action-2">
-                                    <a href="#" class="addtocart-btn btn-primary">ADD TO CART</a>
-                                </div>
+                        <?php
+                    }
+                ?>
 
-                                <a href="wishlist.php" class="wishlist-btn card-wishlist">
-                                    <i class="far fa-heart" style="color:#000;font-size:20px;"></i>
-                                </a>
-                            </div>
-                            <div class="product-card-details text-center">
-                                <h3 class="product-card-title"><a href="<?php echo BASE_URL;?>product.php">men travel bag</a>
-                                </h3>
-                                <div class="product-card-price">
-                                    <span class="card-price-regular">৳529</span>
-                                    <span class="card-price-compare text-decoration-line-through">৳759</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-6">
-                        <div class="product-card">
-                            <div class="product-card-img">
-                                <a class="hover-switch" href="<?php echo BASE_URL;?>product.php">
-                                    <img class="primary-img" src="<?php echo BASE_URL;?>assets/img/products/bags/4.jpg" alt="">
-                                </a>
 
-                                <div class="product-card-action product-card-action-2">
-                                    <a href="#" class="addtocart-btn btn-primary">ADD TO CART</a>
-                                </div>
-
-                                <a href="wishlist.php" class="wishlist-btn card-wishlist">
-                                    <i class="far fa-heart" style="color:#000;font-size:20px;"></i>
-                                </a>
-                            </div>
-                            <div class="product-card-details text-center">
-                                <h3 class="product-card-title"><a href="<?php echo BASE_URL;?>product.php">nike legend stripe</a></h3>
-                                <div class="product-card-price">
-                                    <span class="card-price-regular">৳529</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-6">
-                        <div class="product-card">
-                            <div class="product-card-img">
-                                <a class="hover-switch" href="<?php echo BASE_URL;?>product.php">
-                                    <img class="primary-img" src="<?php echo BASE_URL;?>assets/img/products/bags/5.jpg"
-                                        alt="product-img">
-                                </a>
-
-                                <div class="product-card-action product-card-action-2">
-                                    <a href="#" class="addtocart-btn btn-primary">ADD TO CART</a>
-                                </div>
-
-                                <a href="wishlist.php" class="wishlist-btn card-wishlist">
-                                    <i class="far fa-heart" style="color:#000;font-size:20px;"></i>
-                                </a>
-                            </div>
-                            <div class="product-card-details text-center">
-                                <h3 class="product-card-title"><a href="<?php echo BASE_URL;?>product.php">nike legend
-                                        stripe</a>
-                                </h3>
-                                <div class="product-card-price">
-                                    <span class="card-price-regular">৳529</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-6">
-                        <div class="product-card">
-                            <div class="product-card-img">
-                                <a class="hover-switch" href="<?php echo BASE_URL;?>product.php">
-                                    <img class="primary-img" src="<?php echo BASE_URL;?>assets/img/products/bags/6.jpg" alt="">
-                                </a>
-
-                                <div class="product-card-action product-card-action-2">
-                                    <a href="#" class="addtocart-btn btn-primary">ADD TO CART</a>
-                                </div>
-
-                                <a href="wishlist.php" class="wishlist-btn card-wishlist">
-                                    <i class="far fa-heart" style="color:#000;font-size:20px;"></i>
-                                </a>
-                            </div>
-                            <div class="product-card-details text-center">
-                                <h3 class="product-card-title"><a href="<?php echo BASE_URL;?>product.php">nike legend
-                                        stripe</a>
-                                </h3>
-                                <div class="product-card-price">
-                                    <span class="card-price-regular">৳529</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-6">
-                        <div class="product-card">
-                            <div class="product-card-img">
-                                <a class="hover-switch" href="<?php echo BASE_URL;?>product.php">
-                                    <img class="primary-img" src="<?php echo BASE_URL;?>assets/img/products/bags/7.jpg" alt="">
-                                </a>
-
-                                <div class="product-card-action product-card-action-2">
-                                    <a href="#" class="addtocart-btn btn-primary">ADD TO CART</a>
-                                </div>
-
-                                <a href="wishlist.php" class="wishlist-btn card-wishlist">
-                                    <i class="far fa-heart" style="color:#000;font-size:20px;"></i>
-                                </a>
-                            </div>
-                            <div class="product-card-details text-center">
-                                <h3 class="product-card-title"><a href="<?php echo BASE_URL;?>product.php">women vanity
-                                        bag</a>
-                                </h3>
-                                <div class="product-card-price">
-                                    <span class="card-price-regular">৳529</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-6">
-                        <div class="product-card">
-                            <div class="product-card-img">
-                                <a class="hover-switch" href="<?php echo BASE_URL;?>product.php">
-                                    <img class="primary-img" src="<?php echo BASE_URL;?>assets/img/products/bags/8.jpg" alt="">
-                                </a>
-
-                                <div class="product-card-action product-card-action-2">
-                                    <a href="#" class="addtocart-btn btn-primary">ADD TO CART</a>
-                                </div>
-
-                                <a href="wishlist.php" class="wishlist-btn card-wishlist">
-                                    <i class="far fa-heart" style="color:#000;font-size:20px;"></i>
-                                </a>
-                            </div>
-                            <div class="product-card-details text-center">
-                                <h3 class="product-card-title"><a href="<?php echo BASE_URL;?>product.php">women large
-                                        bag</a>
-                                </h3>
-                                <div class="product-card-price">
-                                    <span class="card-price-regular">৳529</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
+                    
+                    
+                    
+                    
+                    
                 </div>
             </div>
         </div>
     </div>
-    <!-- collection end -->
+    <!-- popular end -->
 
 
     <div class="section-header text-center mt_100 mb_20">

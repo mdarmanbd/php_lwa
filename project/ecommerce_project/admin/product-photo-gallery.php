@@ -147,8 +147,8 @@ if(isset($_POST['form3'])) {
                                     $i = 0;
                                     $statement = $pdo->prepare("SELECT * FROM product_photos WHERE product_id=? ORDER BY id ASC");
                                     $statement->execute([$_REQUEST['id']]);
-                                $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-                                $total = $statement->rowCount();
+                                    $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+                                    $total = $statement->rowCount();
                                     if(!$total){
                                         echo "<tr><td colspan='3' class='text-center text-danger'>No Photo Found</td></tr>";
                                     }

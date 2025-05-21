@@ -1,5 +1,26 @@
 <?php include 'header.php'; ?>
 
+
+<?php 
+
+$statement = $pdo->prepare("SELECT * FROM products WHERE slug=?");
+$statement->execute([$_REQUEST['slug']]);
+$product_data = $statement->fetch(PDO::FETCH_ASSOC);
+$total = $statement->rowCount();
+
+if(!$total){
+    header('location: '.BASE_URL);
+    exit;
+}
+
+$statement = $pdo->prepare("SELECT * FROM categories WHERE id=?");
+$statement->execute([$product_data['category_id']]);
+$category_data = $statement->fetch(PDO::FETCH_ASSOC);
+
+
+?>
+
+
 <!-- breadcrumb start -->
 <div class="breadcrumb">
     <div class="container">
@@ -8,11 +29,11 @@
             <li class="ml_10 mr_10">
                 <i class="fas fa-chevron-right"></i>
             </li>
-            <li>Bag</li>
+            <li><?php echo $category_data['name']; ?></li>
             <li class="ml_10 mr_10">
                 <i class="fas fa-chevron-right"></i>
             </li>
-            <li>Accesories Lather Bag</li>
+            <li> <?php echo $product_data['name']; ?> </li>
         </ul>
     </div>
 </div>
@@ -32,41 +53,30 @@
                                 "arrows": false,
                                 "asNavFor": ".img-thumb-slider"
                             }'>
+
+                            
                                 <div class="img-large-wrapper">
-                                    <a href="<?php echo BASE_URL;?>assets/img/products/bags/39.jpg" data-fancybox="gallery">
-                                        <img src="<?php echo BASE_URL;?>assets/img/products/bags/39.jpg" alt="img">
+                                    <a href="<?php echo BASE_URL;?>uploads/<?php echo $product_data['featured_photo']; ?>" data-fancybox="gallery">
+                                        <img src="<?php echo BASE_URL;?>uploads/<?php echo $product_data['featured_photo']; ?>" alt="img">
                                     </a>
                                 </div>
-                                <div class="img-large-wrapper">
-                                    <a href="<?php echo BASE_URL;?>assets/img/products/bags/38.jpg" data-fancybox="gallery">
-                                        <img src="<?php echo BASE_URL;?>assets/img/products/bags/38.jpg" alt="img">
-                                    </a>
-                                </div>
-                                <div class="img-large-wrapper">
-                                    <a href="<?php echo BASE_URL;?>assets/img/products/bags/37.jpg" data-fancybox="gallery">
-                                        <img src="<?php echo BASE_URL;?>assets/img/products/bags/37.jpg" alt="img">
-                                    </a>
-                                </div>
-                                <div class="img-large-wrapper">
-                                    <a href="<?php echo BASE_URL;?>assets/img/products/bags/36.jpg" data-fancybox="gallery">
-                                        <img src="<?php echo BASE_URL;?>assets/img/products/bags/36.jpg" alt="img">
-                                    </a>
-                                </div>
-                                <div class="img-large-wrapper">
-                                    <a href="<?php echo BASE_URL;?>assets/img/products/bags/34.jpg" data-fancybox="gallery">
-                                        <img src="<?php echo BASE_URL;?>assets/img/products/bags/34.jpg" alt="img">
-                                    </a>
-                                </div>
-                                <div class="img-large-wrapper">
-                                    <a href="<?php echo BASE_URL;?>assets/img/products/bags/30.jpg" data-fancybox="gallery">
-                                        <img src="<?php echo BASE_URL;?>assets/img/products/bags/30.jpg" alt="img">
-                                    </a>
-                                </div>
-                                <div class="img-large-wrapper">
-                                    <a href="<?php echo BASE_URL;?>assets/img/products/bags/32.jpg" data-fancybox="gallery">
-                                        <img src="<?php echo BASE_URL;?>assets/img/products/bags/32.jpg" alt="img">
-                                    </a>
-                                </div>
+                                
+                                <?php
+                                $statement = $pdo->prepare("SELECT * FROM product_photos WHERE product_id=?");
+                                $statement->execute([$product_data['id']]);
+                                $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+                                foreach ($result as $row) {
+                                    ?>
+                                    <div class="img-large-wrapper">
+                                        <a href="<?php echo BASE_URL; ?>uploads/<?php echo $row['photos']; ?>" data-fancybox="gallery">
+                                            <img src="<?php echo BASE_URL; ?>uploads/<?php echo $row['photos']; ?>" alt="img">
+                                        </a>
+                                    </div>
+                                    <?php
+                                }
+                                ?>
+
+
                             </div>
                         </div>
                         <div class="product-img-thumb">
@@ -82,41 +92,28 @@
                                 "swipeToSlide": true,
                                 "asNavFor": ".img-large-slider"
                             }'>
-                                <div>
+
+                            <div>
                                     <div class="img-thumb-wrapper">
-                                        <img src="<?php echo BASE_URL;?>assets/img/products/bags/39.jpg" alt="img">
+                                        <img src="<?php echo BASE_URL; ?>uploads/<?php echo $product_data['featured_photo']; ?>" alt="img">
                                     </div>
                                 </div>
-                                <div>
-                                    <div class="img-thumb-wrapper">
-                                        <img src="<?php echo BASE_URL;?>assets/img/products/bags/38.jpg" alt="img">
+
+                            <?php
+                                $statement = $pdo->prepare("SELECT * FROM product_photos WHERE product_id=?");
+                                $statement->execute([$product_data['id']]);
+                                $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+                                foreach ($result as $row) {
+                                    ?>
+                                    <div>
+                                        <div class="img-thumb-wrapper">
+                                            <img src="<?php echo BASE_URL; ?>uploads/<?php echo $row['photos']; ?>" alt="img">
+                                        </div>
                                     </div>
-                                </div>
-                                <div>
-                                    <div class="img-thumb-wrapper">
-                                        <img src="<?php echo BASE_URL;?>assets/img/products/bags/37.jpg" alt="img">
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="img-thumb-wrapper">
-                                        <img src="<?php echo BASE_URL;?>assets/img/products/bags/36.jpg" alt="img">
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="img-thumb-wrapper">
-                                        <img src="<?php echo BASE_URL;?>assets/img/products/bags/34.jpg" alt="img">
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="img-thumb-wrapper">
-                                        <img src="<?php echo BASE_URL;?>assets/img/products/bags/30.jpg" alt="img">
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="img-thumb-wrapper">
-                                        <img src="<?php echo BASE_URL;?>assets/img/products/bags/32.jpg" alt="img">
-                                    </div>
-                                </div>
+                                    <?php
+                                }
+                                ?>
+                                
                             </div>
                             <div class="activate-arrows show-arrows-always arrows-white d-none d-lg-flex justify-content-between mt-3"></div>
                         </div>
@@ -124,21 +121,31 @@
                 </div>
                 <div class="col-lg-6 col-md-12 col-12">
                     <div class="product-details ps-lg-4">
-                        <div class="mb-3"><span class="product-availability">In Stock</span></div>
-                        <h2 class="product-title mb-3">Accesories Lather bag</h2>
+                        <div class="mb-3">
+                            <span class="product-availability" style="<?php echo($product_data['quantity']==0 ? 'background:#ff0000;' : 'background: #0dad25;') ?>">
+                                <?php if($product_data['quantity'] > 0): ?>
+                                    In Stock
+                                <?php else: ?>
+                                    Out of Stock
+                                <?php endif; ?> 
+                            </span>   
+                        </div>
+                        <h2 class="product-title mb-3"><?php echo $product_data['name']; ?></h2>
                         
                         <div class="product-price-wrapper mb-4">
-                            <span class="product-price regular-price">৳24.00</span>
-                            <del class="product-price compare-price ms-2">৳32.00</del>
+                            <span class="product-price regular-price">৳<?php echo $product_data['sale_price']; ?></span>
+                            <?php if($product_data['regular_price'] !== $product_data['sale_price']): ?>
+                            <del class="product-price compare-price ms-2">৳<?php echo $product_data['regular_price']; ?></del>
+                            <?php endif; ?>
                         </div>
 
                         <div class="product-vendor product-meta mb-3">
-                            <strong class="label">Category:</strong> Women Bag
+                            <strong class="label">Category:</strong> <?php echo $category_data['name']; ?>
                         </div>
 
                         <div class="product-short-description">
                             <p>
-                                Volumus aliquando sea te. Per partem perfecto appellantur ei. Legere volumus pri ne. Eu cum case etiam, dicat solet omittam ei ius. Usu novum accumsan ut, cu honestatis definitiones vim, vis rebum atqui saperet cu. At consul persius vel, id pri dignissim ullamcorper, duo cu invidunt mediocrem.
+                                <?php echo nl2br($product_data['short_description']); ?>
                             </p>
                         </div>
 
@@ -175,15 +182,7 @@
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-12">
                             <div class="desc-content">
-                                <p>
-                                    Lorem ipsum dolor sit amet, vidit senserit pri ut, dolor eripuit detraxit et qui, mei duis graeco inermis in. Eligendi verterem voluptatibus ut vel. Vim periculis abhorreant constituto eu, aliquid laboramus ne per. An scripta erroribus cum, ne zril veritus pro, ne vis saepe quaeque ceteros.
-                                </p>
-                                <p>
-                                    Ex cum impetus vidisse labitur, omnis noluisse ut pro. Indoctum patrioque assentior qui eu. An veri postulant honestatis pro, cu nihil saepe dicant sea, usu paulo dicunt inimicus ei. Exerci aeterno intellegam eu vix, eius admodum ne sed. Antiopam laboramus constituam est eu, vim affert oratio voluptaria in. Ex duo copiosae inimicus, ut est sonet quaeque.
-                                </p>
-                                <p>
-                                    Id eam vitae soluta explicari, quo delectus reprimique complectitur ad. Quot debet quodsi ea vis, adolescens definiebas disputando nec et. Eam graecis accusam assentior in. Nam amet iriure eleifend at, cum soleat nominati an, nam mentitum percipit ut. Dicta iuvaret id sed, an mei graeci dissentias. Facer minim inciderint sit at, ad qui possim patrioque sententiae.
-                                </p>
+                                <?php echo $product_data['description']; ?>
                             </div>
                         </div>
                     </div>
@@ -194,67 +193,35 @@
                             <table class="table table-bordered">
                                 <tr>
                                     <td>SKU</td>
-                                    <td>102</td>
+                                    <td><?php echo $product_data['sku']; ?></td>
                                 </tr>
                                 <tr>
                                     <td>Size</td>
-                                    <td>20 Inch</td>
+                                    <td><?php echo $product_data['size']; ?></td>
                                 </tr>
                                 <tr>
                                     <td>Color</td>
-                                    <td>Red, Blue, White</td>
-                                </tr>
-                                <tr>
-                                    <td>Pattern</td>
-                                    <td>Solid Color + Reflective Stripes</td>
+                                    <td><?php echo $product_data['color']; ?></td>
                                 </tr>
                                 <tr>
                                     <td>Capacity</td>
-                                    <td>30 Liters</td>
+                                    <td><?php echo $product_data['capacity']; ?></td>
                                 </tr>
                                 <tr>
                                     <td>Weight</td>
-                                    <td>1.8 lbs (0.8 kg)</td>
-                                </tr>
-                                <tr>
-                                    <td>Outer Fabric</td>
-                                    <td>600D Polyester (Recycled)</td>
-                                </tr>
-                                <tr>
-                                    <td>Lining</td>
-                                    <td>Nylon (Water-Resistant Coating)</td>
-                                </tr>
-                                <tr>
-                                    <td>Zippers</td>
-                                    <td>YKK® Anti-Theft Zippers</td>
-                                </tr>
-                                <tr>
-                                    <td>Hardware</td>
-                                    <td>Rust-Proof Metal Buckles</td>
+                                    <td><?php echo $product_data['weight']; ?></td>
                                 </tr>
                                 <tr>
                                     <td>Pockets</td>
-                                    <td>5 Total (Including Hidden RFID Pocket)</td>
-                                </tr>
-                                <tr>
-                                    <td>Comfort</td>
-                                    <td>Padded Shoulder Straps + Breathable Back</td>
+                                    <td><?php echo $product_data['pocket']; ?></td>
                                 </tr>
                                 <tr>
                                     <td>Water Resistance</td>
-                                    <td>Light Rain-Resistant (Not Submersible)</td>
+                                    <td><?php echo $product_data['water_resistant']; ?></td>
                                 </tr>
                                 <tr>
                                     <td>Warranty</td>
-                                    <td>1-Year Manufacturing Defects</td>
-                                </tr>
-                                <tr>
-                                    <td>Ideal For</td>
-                                    <td>Travel, Hiking, Work Commute</td>
-                                </tr>
-                                <tr>
-                                    <td>Certifications</td>
-                                    <td>OEKO-TEX® Certified, PETA-Approved Vegan</td>
+                                    <td><?php echo $product_data['warranty']; ?></td>
                                 </tr>
                             </table>
                         </div>
@@ -264,7 +231,16 @@
         </div>
     </div>
     <!-- product tab end -->
-    
+
+    <?php 
+        $statement = $pdo->prepare("SELECT * FROM products WHERE category_id=? AND id!=?");
+        $statement->execute([$product_data['category_id'], $product_data['id']]);
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+        $total = $statement->rowCount();   
+                                    
+    ?>
+
+    <?php if($total): ?>
     <!-- you may also like start -->
     <div class="featured-collection-section mt-100 home-section overflow-hidden">
         <div class="container">
@@ -294,211 +270,45 @@
                 ]
             }'>
 
-            <div class="new-item">
-                <div class="product-card">
-                    <div class="product-card-img">
-                        <a class="hover-switch" href="<?php echo BASE_URL;?>product.php">
-                            <img class="primary-img" src="<?php echo BASE_URL;?>assets/img/products/bags/1.jpg" alt="">
-                        </a>
+            <?php 
+            foreach($result as $row){
+            ?>
+                <div class="new-item">
+                    <div class="product-card">
+                        <div class="product-card-img">
+                            <a class="hover-switch" href="<?php echo BASE_URL;?>product.php?slug=<?php echo $row['slug']; ?>">
+                                <img class="primary-img" src="<?php echo BASE_URL;?>uploads/<?php echo $row['featured_photo']; ?>" alt="">
+                            </a>
 
-                        <div class="product-card-action product-card-action-2">
-                            <a href="#" class="addtocart-btn btn-primary">ADD TO CART</a>
+                            <div class="product-card-action product-card-action-2">
+                                <a href="#" class="addtocart-btn btn-primary">ADD TO CART</a>
+                            </div>
+
+                            <a href="<?php echo BASE_URL;?>wishlist.php" class="wishlist-btn card-wishlist">
+                                <i class="far fa-heart" style="color:#000;font-size:20px;"></i>
+                            </a>
                         </div>
-
-                        <a href="<?php echo BASE_URL;?>wishlist.php" class="wishlist-btn card-wishlist">
-                            <i class="far fa-heart" style="color:#000;font-size:20px;"></i>
-                        </a>
-                    </div>
-                    <div class="product-card-details text-center">
-                        <h3 class="product-card-title"><a href="<?php echo BASE_URL;?>product.php">black backpack</a>
-                        </h3>
-                        <div class="product-card-price">
-                            <span class="card-price-regular">৳1529</span>
-                            <span class="card-price-compare text-decoration-line-through">৳1759</span>
+                        <div class="product-card-details text-center">
+                           <h3 class="product-card-title"><a href="<?php echo BASE_URL; ?>product.php?slug=<?php echo $row['slug']; ?>"><?php echo $row['name']; ?></a>
+                            </h3>
+                            <div class="product-card-price">
+                                <span class="card-price-regular">৳<?php echo $row['regular_price']; ?></span>
+                                <span class="card-price-compare text-decoration-line-through">৳<?php echo $row['sale_price']; ?></span>
+                            </div>
                         </div>
                     </div>
                 </div>
+            <?php
+            }
+            ?>
+            
             </div>
-            <div class="new-item">
-                <div class="product-card">
-                    <div class="product-card-img">
-                        <a class="hover-switch" href="<?php echo BASE_URL;?>product.php">
-                            <img class="primary-img" src="<?php echo BASE_URL;?>assets/img/products/bags/2.jpg" alt="">
-                        </a>
-
-                        <div class="product-card-action product-card-action-2">
-                            <a href="#" class="addtocart-btn btn-primary">ADD TO CART</a>
-                        </div>
-
-                        <a href="<?php echo BASE_URL;?>wishlist.php" class="wishlist-btn card-wishlist">
-                            <i class="far fa-heart" style="color:#000;font-size:20px;"></i>
-                        </a>
-                    </div>
-                    <div class="product-card-details text-center">
-                        <h3 class="product-card-title"><a href="<?php echo BASE_URL;?>product.php">lady handbag</a>
-                        </h3>
-                        <div class="product-card-price">
-                            <span class="card-price-regular">৳529</span>
-                            <span class="card-price-compare text-decoration-line-through">৳759</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="new-item">
-                <div class="product-card">
-                    <div class="product-card-img">
-                        <a class="hover-switch" href="<?php echo BASE_URL;?>product.php">
-                            <img class="primary-img" src="<?php echo BASE_URL;?>assets/img/products/bags/3.jpg" alt="">
-                        </a>
-
-                        <div class="product-card-action product-card-action-2">
-                            <a href="#" class="addtocart-btn btn-primary">ADD TO CART</a>
-                        </div>
-
-                        <a href="<?php echo BASE_URL;?>wishlist.php" class="wishlist-btn card-wishlist">
-                            <i class="far fa-heart" style="color:#000;font-size:20px;"></i>
-                        </a>
-                    </div>
-                    <div class="product-card-details text-center">
-                        <h3 class="product-card-title"><a href="<?php echo BASE_URL;?>product.php">men travel bag</a>
-                        </h3>
-                        <div class="product-card-price">
-                            <span class="card-price-regular">৳529</span>
-                            <span class="card-price-compare text-decoration-line-through">৳759</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="new-item">
-                <div class="product-card">
-                    <div class="product-card-img">
-                        <a class="hover-switch" href="<?php echo BASE_URL;?>product.php">
-                            <img class="primary-img" src="<?php echo BASE_URL;?>assets/img/products/bags/4.jpg" alt="">
-                        </a>
-
-                        <div class="product-card-action product-card-action-2">
-                            <a href="#" class="addtocart-btn btn-primary">ADD TO CART</a>
-                        </div>
-
-                        <a href="<?php echo BASE_URL;?>wishlist.php" class="wishlist-btn card-wishlist">
-                            <i class="far fa-heart" style="color:#000;font-size:20px;"></i>
-                        </a>
-                    </div>
-                    <div class="product-card-details text-center">
-                        <h3 class="product-card-title"><a href="<?php echo BASE_URL;?>product.php">nike legend
-                                stripe</a>
-                        </h3>
-                        <div class="product-card-price">
-                            <span class="card-price-regular">৳529</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="new-item">
-                <div class="product-card">
-                    <div class="product-card-img">
-                        <a class="hover-switch" href="<?php echo BASE_URL;?>product.php">
-                            <img class="primary-img" src="<?php echo BASE_URL;?>assets/img/products/bags/5.jpg" alt="">
-                        </a>
-
-                        <div class="product-card-action product-card-action-2">
-                            <a href="#" class="addtocart-btn btn-primary">ADD TO CART</a>
-                        </div>
-
-                        <a href="<?php echo BASE_URL;?>wishlist.php" class="wishlist-btn card-wishlist">
-                            <i class="far fa-heart" style="color:#000;font-size:20px;"></i>
-                        </a>
-                    </div>
-                    <div class="product-card-details text-center">
-                        <h3 class="product-card-title"><a href="<?php echo BASE_URL;?>product.php">nike legend
-                                stripe</a>
-                        </h3>
-                        <div class="product-card-price">
-                            <span class="card-price-regular">৳529</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="new-item">
-                <div class="product-card">
-                    <div class="product-card-img">
-                        <a class="hover-switch" href="<?php echo BASE_URL;?>product.php">
-                            <img class="primary-img" src="<?php echo BASE_URL;?>assets/img/products/bags/6.jpg" alt="">
-                        </a>
-
-                        <div class="product-card-action product-card-action-2">
-                            <a href="#" class="addtocart-btn btn-primary">ADD TO CART</a>
-                        </div>
-
-                        <a href="<?php echo BASE_URL;?>wishlist.php" class="wishlist-btn card-wishlist">
-                            <i class="far fa-heart" style="color:#000;font-size:20px;"></i>
-                        </a>
-                    </div>
-                    <div class="product-card-details text-center">
-                        <h3 class="product-card-title"><a href="<?php echo BASE_URL;?>product.php">nike legend
-                                stripe</a>
-                        </h3>
-                        <div class="product-card-price">
-                            <span class="card-price-regular">৳529</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="new-item">
-                <div class="product-card">
-                    <div class="product-card-img">
-                        <a class="hover-switch" href="<?php echo BASE_URL;?>product.php">
-                            <img class="primary-img" src="<?php echo BASE_URL;?>assets/img/products/bags/7.jpg" alt="">
-                        </a>
-
-                        <div class="product-card-action product-card-action-2">
-                            <a href="#" class="addtocart-btn btn-primary">ADD TO CART</a>
-                        </div>
-
-                        <a href="<?php echo BASE_URL;?>wishlist.php" class="wishlist-btn card-wishlist">
-                            <i class="far fa-heart" style="color:#000;font-size:20px;"></i>
-                        </a>
-                    </div>
-                    <div class="product-card-details text-center">
-                        <h3 class="product-card-title"><a href="<?php echo BASE_URL;?>product.php">women vanity
-                                bag</a>
-                        </h3>
-                        <div class="product-card-price">
-                            <span class="card-price-regular">৳529</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="new-item">
-                <div class="product-card">
-                    <div class="product-card-img">
-                        <a class="hover-switch" href="<?php echo BASE_URL;?>product.php">
-                            <img class="primary-img" src="<?php echo BASE_URL;?>assets/img/products/bags/8.jpg" alt="">
-                        </a>
-
-                        <div class="product-card-action product-card-action-2">
-                            <a href="#" class="addtocart-btn btn-primary">ADD TO CART</a>
-                        </div>
-
-                        <a href="<?php echo BASE_URL;?>wishlist.php" class="wishlist-btn card-wishlist">
-                            <i class="far fa-heart" style="color:#000;font-size:20px;"></i>
-                        </a>
-                    </div>
-                    <div class="product-card-details text-center">
-                        <h3 class="product-card-title"><a href="<?php echo BASE_URL;?>product.php">women large bag</a>
-                        </h3>
-                        <div class="product-card-price">
-                            <span class="card-price-regular">৳529</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-                </div>
                 <div class="activate-arrows show-arrows-always article-arrows arrows-white"></div>
             </div>
         </div>
     </div>
     <!-- you may also lik end -->
+     <?php endif; ?>
 </main>
 
 <?php include 'footer.php'; ?>
