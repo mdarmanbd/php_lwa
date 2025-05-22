@@ -20,13 +20,21 @@
         <div class="container">
             <div class="row flex-row-reverse">
 
+            <?php 
+            
+            $q = $pdo->prepare("SELECT * FROM products ORDER BY id DESC");
+            $q->execute();
+            $result = $q->fetchAll(PDO::FETCH_ASSOC);
+            $total = $q->rowCount(); 
+            
+            ?>
 
                 <!-- product area start -->
                 <div class="col-lg-9 col-md-12 col-12">
                     <div class="filter-sort-wrapper d-flex justify-content-between flex-wrap">
                         <div class="collection-title-wrap d-flex align-items-end">
                             <h2 class="collection-title heading_24 mb-0">All products</h2>
-                            <p class="collection-counter text_16 mb-0 ms-2">(237 items)</p>
+                            <p class="collection-counter text_16 mb-0 ms-2">( <?php echo $total; ?> items)</p>
                         </div>
                         <div class="filter-sorting">
                             <div class="filter-drawer-trigger mobile-filter d-flex align-items-center d-lg-none">
@@ -43,288 +51,206 @@
                     </div>
                     <div class="collection-product-container">
                         <div class="row">
-                            <div class="col-lg-4 col-md-6 col-6">
-                                <div class="new-item">
-                                    <div class="product-card">
-                                        <div class="product-card-img">
-                                            <a class="hover-switch" href="<?php echo BASE_URL;?>product.php">
-                                                <img class="primary-img" src="<?php echo BASE_URL;?>assets/img/products/bags/1.jpg" alt="">
-                                            </a>
+                            <?php
+                                $per_page = 3;
+                                    $q = $pdo->prepare("SELECT * FROM products ORDER BY id DESC");
+                                    $q->execute();
+                                    $total = $q->rowCount();
+                                    
+                                    $total_pages = ceil($total/$per_page);    
 
-                                            <div class="product-card-action product-card-action-2">
-                                                <a href="#" class="addtocart-btn btn-primary">ADD TO CART</a>
-                                            </div>
+                                    if(!isset($_REQUEST['p'])) {
+                                        $start = 1;
+                                    } else {
+                                        $start = $per_page * ($_REQUEST['p']-1) + 1;
+                                    }
 
-                                            <a href="<?php echo BASE_URL;?>wishlist.php" class="wishlist-btn card-wishlist">
-                                                <i class="far fa-heart" style="color:#000;font-size:20px;"></i>
-                                            </a>
-                                        </div>
-                                        <div class="product-card-details text-center">
-                                            <h3 class="product-card-title"><a href="<?php echo BASE_URL;?>product.php">black backpack</a>
-                                            </h3>
-                                            <div class="product-card-price">
-                                                <span class="card-price-regular">৳1529</span>
-                                                <span class="card-price-compare text-decoration-line-through">৳1759</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                    $j=0;
+                                    $k=0;
+                                    $arr1 = [];
+                                    $res = $q->fetchAll();
+                                    foreach($res as $row) {
+                                        $j++;
+                                        if($j>=$start) {
+                                            $k++;
+                                            if($k>$per_page) {break;}
+                                            $arr1[] = $row['id'];
+                                        }
+                                    }
+                            ?>
 
-                            <div class="col-lg-4 col-md-6 col-6">
-                                <div class="new-item">
-                                    <div class="product-card">
-                                        <div class="product-card-img">
-                                            <a class="hover-switch" href="<?php echo BASE_URL;?>product.php">
-                                                <img class="primary-img" src="<?php echo BASE_URL;?>assets/img/products/bags/2.jpg" alt="">
-                                            </a>
+                        <?php 
+            
+                            $q = $pdo->prepare("SELECT * FROM products ORDER BY id DESC");
+                            $q->execute();
+                            $result = $q->fetchAll(PDO::FETCH_ASSOC);
+                            $total_row = $q->rowCount();
 
-                                            <div class="product-card-action product-card-action-2">
-                                                <a href="#" class="addtocart-btn btn-primary">ADD TO CART</a>
-                                            </div>
+                            foreach($result as $row){
 
-                                            <a href="<?php echo BASE_URL;?>wishlist.php" class="wishlist-btn card-wishlist">
-                                                <i class="far fa-heart" style="color:#000;font-size:20px;"></i>
-                                            </a>
-                                        </div>
-                                        <div class="product-card-details text-center">
-                                            <h3 class="product-card-title"><a href="<?php echo BASE_URL;?>product.php">lady handbag</a>
-                                            </h3>
-                                            <div class="product-card-price">
-                                                <span class="card-price-regular">৳529</span>
-                                                <span class="card-price-compare text-decoration-line-through">৳759</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                if(!in_array($row['id'],$arr1)) {
+                                    continue;
+                                }
 
-                            <div class="col-lg-4 col-md-6 col-6">
-                                <div class="new-item">
-                                    <div class="product-card">
-                                        <div class="product-card-img">
-                                            <a class="hover-switch" href="<?php echo BASE_URL;?>product.php">
-                                                <img class="primary-img" src="<?php echo BASE_URL;?>assets/img/products/bags/3.jpg" alt="">
-                                            </a>
+                                ?>
+                                    <div class="col-lg-4 col-md-6 col-6">
+                                        <div class="new-item">
+                                            <div class="product-card">
+                                                <div class="product-card-img">
+                                                    <a class="hover-switch" href="<?php echo BASE_URL;?>product.php?slug=<?php echo $row['slug']; ?>">
+                                                        <img class="primary-img" src="<?php echo BASE_URL;?>uploads/<?php echo $row['featured_photo']; ?>" alt="">
+                                                    </a>
 
-                                            <div class="product-card-action product-card-action-2">
-                                                <a href="#" class="addtocart-btn btn-primary">ADD TO CART</a>
-                                            </div>
+                                                    <div class="product-card-action product-card-action-2">
+                                                        <a href="#" class="addtocart-btn btn-primary">ADD TO CART</a>
+                                                    </div>
 
-                                            <a href="<?php echo BASE_URL;?>wishlist.php" class="wishlist-btn card-wishlist">
-                                                <i class="far fa-heart" style="color:#000;font-size:20px;"></i>
-                                            </a>
-                                        </div>
-                                        <div class="product-card-details text-center">
-                                            <h3 class="product-card-title"><a href="<?php echo BASE_URL;?>product.php">men travel bag</a>
-                                            </h3>
-                                            <div class="product-card-price">
-                                                <span class="card-price-regular">৳529</span>
-                                                <span class="card-price-compare text-decoration-line-through">৳759</span>
+                                                    <a href="<?php echo BASE_URL;?>wishlist.php" class="wishlist-btn card-wishlist">
+                                                        <i class="far fa-heart" style="color:#000;font-size:20px;"></i>
+                                                    </a>
+                                                </div>
+                                                <div class="product-card-details text-center">
+                                                    <h3 class="product-card-title"><a href="<?php echo BASE_URL;?>product.php?slug=<?php echo $row['slug']; ?>">black backpack</a>
+                                                    </h3>
+                                                    <div class="product-card-price">
+                                                        <span class="card-price-regular">৳<?php echo $row['sale_price']; ?></span>
+                                                        <?php if($row['regular_price'] !== $row['sale_price']): ?>
+                                                        <span class="card-price-compare text-decoration-line-through">৳<?php echo $row['regular_price']; ?></span>
+                                                        <?php endif; ?>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-4 col-md-6 col-6">
-                                <div class="new-item">
-                                    <div class="product-card">
-                                        <div class="product-card-img">
-                                            <a class="hover-switch" href="<?php echo BASE_URL;?>product.php">
-                                                <img class="primary-img" src="<?php echo BASE_URL;?>assets/img/products/bags/4.jpg" alt="">
-                                            </a>
-
-                                            <div class="product-card-action product-card-action-2">
-                                                <a href="#" class="addtocart-btn btn-primary">ADD TO CART</a>
-                                            </div>
-
-                                            <a href="<?php echo BASE_URL;?>wishlist.php" class="wishlist-btn card-wishlist">
-                                                <i class="far fa-heart" style="color:#000;font-size:20px;"></i>
-                                            </a>
-                                        </div>
-                                        <div class="product-card-details text-center">
-                                            <h3 class="product-card-title"><a href="<?php echo BASE_URL;?>product.php">nike legend
-                                                    stripe</a>
-                                            </h3>
-                                            <div class="product-card-price">
-                                                <span class="card-price-regular">৳529</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-4 col-md-6 col-6">
-                                <div class="new-item">
-                                    <div class="product-card">
-                                        <div class="product-card-img">
-                                            <a class="hover-switch" href="<?php echo BASE_URL;?>product.php">
-                                                <img class="primary-img" src="<?php echo BASE_URL;?>assets/img/products/bags/5.jpg" alt="">
-                                            </a>
-
-                                            <div class="product-card-action product-card-action-2">
-                                                <a href="#" class="addtocart-btn btn-primary">ADD TO CART</a>
-                                            </div>
-
-                                            <a href="<?php echo BASE_URL;?>wishlist.php" class="wishlist-btn card-wishlist">
-                                                <i class="far fa-heart" style="color:#000;font-size:20px;"></i>
-                                            </a>
-                                        </div>
-                                        <div class="product-card-details text-center">
-                                            <h3 class="product-card-title"><a href="<?php echo BASE_URL;?>product.php">nike legend
-                                                    stripe</a>
-                                            </h3>
-                                            <div class="product-card-price">
-                                                <span class="card-price-regular">৳529</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-4 col-md-6 col-6">
-                                <div class="new-item">
-                                    <div class="product-card">
-                                        <div class="product-card-img">
-                                            <a class="hover-switch" href="<?php echo BASE_URL;?>product.php">
-                                                <img class="primary-img" src="<?php echo BASE_URL;?>assets/img/products/bags/6.jpg" alt="">
-                                            </a>
-
-                                            <div class="product-card-action product-card-action-2">
-                                                <a href="#" class="addtocart-btn btn-primary">ADD TO CART</a>
-                                            </div>
-
-                                            <a href="<?php echo BASE_URL;?>wishlist.php" class="wishlist-btn card-wishlist">
-                                                <i class="far fa-heart" style="color:#000;font-size:20px;"></i>
-                                            </a>
-                                        </div>
-                                        <div class="product-card-details text-center">
-                                            <h3 class="product-card-title"><a href="<?php echo BASE_URL;?>product.php">nike legend
-                                                    stripe</a>
-                                            </h3>
-                                            <div class="product-card-price">
-                                                <span class="card-price-regular">৳529</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-4 col-md-6 col-6">
-                                <div class="new-item">
-                                    <div class="product-card">
-                                        <div class="product-card-img">
-                                            <a class="hover-switch" href="<?php echo BASE_URL;?>product.php">
-                                                <img class="primary-img" src="<?php echo BASE_URL;?>assets/img/products/bags/7.jpg" alt="">
-                                            </a>
-
-                                            <div class="product-card-action product-card-action-2">
-                                                <a href="#" class="addtocart-btn btn-primary">ADD TO CART</a>
-                                            </div>
-
-                                            <a href="<?php echo BASE_URL;?>wishlist.php" class="wishlist-btn card-wishlist">
-                                                <i class="far fa-heart" style="color:#000;font-size:20px;"></i>
-                                            </a>
-                                        </div>
-                                        <div class="product-card-details text-center">
-                                            <h3 class="product-card-title"><a href="<?php echo BASE_URL;?>product.php">women vanity
-                                                    bag</a>
-                                            </h3>
-                                            <div class="product-card-price">
-                                                <span class="card-price-regular">৳529</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-4 col-md-6 col-6">
-                                <div class="new-item">
-                                    <div class="product-card">
-                                        <div class="product-card-img">
-                                            <a class="hover-switch" href="<?php echo BASE_URL;?>product.php">
-                                                <img class="primary-img" src="<?php echo BASE_URL;?>assets/img/products/bags/8.jpg" alt="">
-                                            </a>
-
-                                            <div class="product-card-action product-card-action-2">
-                                                <a href="#" class="addtocart-btn btn-primary">ADD TO CART</a>
-                                            </div>
-
-                                            <a href="<?php echo BASE_URL;?>wishlist.php" class="wishlist-btn card-wishlist">
-                                                <i class="far fa-heart" style="color:#000;font-size:20px;"></i>
-                                            </a>
-                                        </div>
-                                        <div class="product-card-details text-center">
-                                            <h3 class="product-card-title"><a href="<?php echo BASE_URL;?>product.php">women large bag</a>
-                                            </h3>
-                                            <div class="product-card-price">
-                                                <span class="card-price-regular">৳529</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-4 col-md-6 col-6">
-                                <div class="new-item">
-                                    <div class="product-card">
-                                        <div class="product-card-img">
-                                            <a class="hover-switch" href="<?php echo BASE_URL;?>product.php">
-                                                <img class="primary-img" src="<?php echo BASE_URL;?>assets/img/products/bags/8.jpg" alt="">
-                                            </a>
-
-                                            <div class="product-card-action product-card-action-2">
-                                                <a href="#" class="addtocart-btn btn-primary">ADD TO CART</a>
-                                            </div>
-
-                                            <a href="<?php echo BASE_URL;?>wishlist.php" class="wishlist-btn card-wishlist">
-                                                <i class="far fa-heart" style="color:#000;font-size:20px;"></i>
-                                            </a>
-                                        </div>
-                                        <div class="product-card-details text-center">
-                                            <h3 class="product-card-title"><a href="<?php echo BASE_URL;?>product.php">women large bag</a>
-                                            </h3>
-                                            <div class="product-card-price">
-                                                <span class="card-price-regular">৳529</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                <?php
+                                }
+                            ?>
+                  
                         </div>
                     </div>
 
+                    <?php if($total_row > $per_page): ?>
+                     
+                    <?php  $common_url = BASE_URL.'shop.php'; ?>    
+
                     <div class="pagination justify-content-center mt-100">
                         <nav>
+
                             <ul class="pagination m-0 d-flex align-items-center">
-                                <li class="item disabled">
-                                    <a class="link">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"
-                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                            class="icon icon-left">
-                                            <polyline points="15 18 9 12 15 6"></polyline>
-                                        </svg>
-                                    </a>
-                                </li>
-                                <li class="item"><a class="link" href="#">1</a></li>
-                                <li class="item active"><a class="link" href="#">2</a></li>
-                                <li class="item"><a class="link" href="#">3</a></li>
-                                <li class="item"><a class="link" href="#">4</a></li>
-                                <li class="item">
-                                    <a class="link" href="#">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"
-                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                            class="icon icon-right">
-                                            <polyline points="9 18 15 12 9 6"></polyline>
-                                        </svg>
-                                    </a>
-                                </li>
+
+                                <?php 
+                                if(isset($_REQUEST['p'])) {
+                                if($_REQUEST['p'] == 1) {
+                                    ?>
+                                        <li class="item">
+                                            <a class="link" href="javascript:void">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="icon icon-left">
+                                                    <polyline points="15 18 9 12 15 6"></polyline>
+                                                </svg>
+                                            </a>
+                                        </li>
+                                    <?php
+                                } else {
+                                    ?>
+                                        <li class="item">
+                                            <a class="link" href="<?php echo $common_url.'?p='.($_REQUEST['p']-1); ?>">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="icon icon-left">
+                                                    <polyline points="15 18 9 12 15 6"></polyline>
+                                                </svg>
+                                            </a>
+                                        </li>
+                                    <?php
+                                }
+                                } else {
+                                    ?>
+                                        <li class="item">
+                                            <a class="link" href="javascript:void;">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="icon icon-left">
+                                                    <polyline points="15 18 9 12 15 6"></polyline>
+                                                </svg>
+                                            </a>
+                                        </li>
+                                    <?php
+                                }
+                                
+                                ?>
+
+
+                               <?php 
+                                for($i=1;$i<=$total_pages;$i++) {
+                                    ?>
+                                        <li class="item">
+                                            <a class="link" href="<?php echo $common_url.'?p='.$i; ?>">
+                                                <?php echo $i; ?>
+                                            </a>
+                                        </li>
+                                    <?php
+                                    
+                                    }
+                               ?>
+
+                                <?php 
+
+                                    if(isset($_REQUEST['p'])) {
+                                        if($_REQUEST['p'] == $total_pages) {
+
+                                            ?>
+                                                <li class="item">
+                                                    <a class="link" href="javascript:void;">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                            class="icon icon-right">
+                                                            <polyline points="9 18 15 12 9 6"></polyline>
+                                                        </svg>
+                                                    </a>
+                                                </li>
+                                            <?php
+                                            
+                                            
+                                        } else {
+                                            ?>
+                                                <li class="item">
+                                                    <a class="link" href="<?php echo $common_url.'?p='.($_REQUEST['p']+1); ?>">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                            class="icon icon-right">
+                                                            <polyline points="9 18 15 12 9 6"></polyline>
+                                                        </svg>
+                                                    </a>
+                                                </li>
+                                            <?php
+                                        }
+                                    } else {
+                                        ?>
+                                            <li class="item">
+                                                <a class="link" href="<?php echo $common_url.'?p=2'; ?>">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"
+                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                        class="icon icon-right">
+                                                        <polyline points="9 18 15 12 9 6"></polyline>
+                                                    </svg>
+                                                </a>
+                                            </li>
+                                        <?php
+                                    }
+                                ?>
                             </ul>
+
                         </nav>
                     </div>
+                    <?php endif; ?>
                 </div>
                 <!-- product area end -->
 

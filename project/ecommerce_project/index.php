@@ -91,7 +91,6 @@
     <!-- slideshow end -->
 
 
-
     <!-- banner start -->
     <div class="banner-section mt-100 overflow-hidden">
         <div class="banner-section-inner">
@@ -176,12 +175,6 @@
                         <?php
                     }
                 ?>
-
-
-                    
-                    
-                    
-                    
                     
                     
                 </div>
