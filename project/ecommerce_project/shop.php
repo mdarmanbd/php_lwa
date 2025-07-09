@@ -1,5 +1,69 @@
 <?php include 'header.php'; ?>
 
+
+
+
+<?php 
+
+if(!isset($_GET['name']) || !isset($_GET['category']) || !isset($_GET['availability']) || !isset($_GET['min_price']) || !isset($_GET['max_price'])) {
+    header('location: '.BASE_URL.'shop.php?name=&category=&availability=&min_price=&max_price=');
+    exit;
+}
+
+if(isset($_GET['name'])){
+    if($_GET['name'] == ''){
+        $c_name = '';
+    } else {
+        $c_name = " AND name LIKE '%".$_GET['name']."%'";
+    }
+} else {
+    $c_name = '';
+}
+
+
+
+if(isset($_GET['category'])){
+    if($_GET['category'] == ''){
+        $c_categorey = " ";
+    }else{
+        $c_categorey = ' AND category_id = '.$_GET['category'];
+    }
+}else{
+    $c_categorey = " ";
+}
+
+
+if(isset($_GET['availability'])) {
+    if($_GET['availability'] == '') {
+        $c_availability = '';
+    }
+    elseif($_GET['availability'] == 'in-stock') {
+        $c_availability = " AND quantity > 0";
+    } else {
+        $c_availability = " AND quantity = 0";
+    }
+} else {
+    $c_availability = '';
+}
+
+
+if(isset($_GET['min_price']) && isset($_GET['max_price'])) {
+    if($_GET['min_price'] == '' && $_GET['max_price'] == '') {
+        $c_price = '';
+    } elseif($_GET['min_price'] == '' && $_GET['max_price'] != '') {
+        $c_price = " AND sale_price <= ".$_GET['max_price'];
+    } elseif($_GET['min_price'] != '' && $_GET['max_price'] == '') {
+        $c_price = " AND sale_price >= ".$_GET['min_price'];
+    } else {
+        $c_price = " AND sale_price BETWEEN ".$_GET['min_price']." AND ".$_GET['max_price'];
+    }
+} else {
+    $c_price = ''; 
+}
+
+
+?>
+
 <!-- breadcrumb start -->
 <div class="breadcrumb">
     <div class="container">
@@ -21,8 +85,8 @@
             <div class="row flex-row-reverse">
 
             <?php 
-            
-            $q = $pdo->prepare("SELECT * FROM products ORDER BY id DESC");
+            $query = $c_categorey.$c_name.$c_availability.$c_price;
+            $q = $pdo->prepare("SELECT * FROM products WHERE 1=1 ".$query." ORDER BY id DESC");
             $q->execute();
             $result = $q->fetchAll(PDO::FETCH_ASSOC);
             $total = $q->rowCount(); 
@@ -31,30 +95,29 @@
 
                 <!-- product area start -->
                 <div class="col-lg-9 col-md-12 col-12">
+                    
                     <div class="filter-sort-wrapper d-flex justify-content-between flex-wrap">
                         <div class="collection-title-wrap d-flex align-items-end">
+                            
                             <h2 class="collection-title heading_24 mb-0">All products</h2>
                             <p class="collection-counter text_16 mb-0 ms-2">( <?php echo $total; ?> items)</p>
                         </div>
-                        <div class="filter-sorting">
-                            <div class="filter-drawer-trigger mobile-filter d-flex align-items-center d-lg-none">
-                                <span class="mobile-filter-icon me-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round" class="icon icon-filter">
-                                        <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
-                                    </svg>
-                                </span>
-                                <span class="mobile-filter-heading">Filter and Sorting</span>
-                            </div>
-                        </div>
+                        
                     </div>
                     <div class="collection-product-container">
+                        <?php if($total == 0):  ?>
+                            <div class="w-100">
+                               <h1 class="pt-5 w-50 m-auto text-danger">
+                                No Product Found
+                               </h1> 
+                            </div>
+                        <?php endif; ?>
+                        
                         <div class="row">
                             <?php
                                 $per_page = 3;
-                                    $q = $pdo->prepare("SELECT * FROM products ORDER BY id DESC");
-                                    $q->execute();
+
+                                     $q->execute();
                                     $total = $q->rowCount();
                                     
                                     $total_pages = ceil($total/$per_page);    
@@ -81,7 +144,6 @@
 
                         <?php 
             
-                            $q = $pdo->prepare("SELECT * FROM products ORDER BY id DESC");
                             $q->execute();
                             $result = $q->fetchAll(PDO::FETCH_ASSOC);
                             $total_row = $q->rowCount();
@@ -110,7 +172,7 @@
                                                     </a>
                                                 </div>
                                                 <div class="product-card-details text-center">
-                                                    <h3 class="product-card-title"><a href="<?php echo BASE_URL;?>product.php?slug=<?php echo $row['slug']; ?>">black backpack</a>
+                                                    <h3 class="product-card-title"><a href="<?php echo BASE_URL;?>product.php?slug=<?php echo $row['slug']; ?>"><?php echo $row['name'] ?></a>
                                                     </h3>
                                                     <div class="product-card-price">
                                                         <span class="card-price-regular">৳<?php echo $row['sale_price']; ?></span>
@@ -131,7 +193,7 @@
 
                     <?php if($total_row > $per_page): ?>
                      
-                    <?php  $common_url = BASE_URL.'shop.php'; ?>    
+                    <?php  $common_url = BASE_URL . "shop.php?name=".$_GET['name']."&category=".$_GET['category']."&availability=".$_GET['availability']; ?> 
 
                     <div class="pagination justify-content-center mt-100">
                         <nav>
@@ -156,7 +218,7 @@
                                 } else {
                                     ?>
                                         <li class="item">
-                                            <a class="link" href="<?php echo $common_url.'?p='.($_REQUEST['p']-1); ?>">
+                                            <a class="link" href="<?php echo $common_url.'&p='.($_REQUEST['p']-1); ?>">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"
                                                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -184,12 +246,11 @@
                                 
                                 ?>
 
-
                                <?php 
                                 for($i=1;$i<=$total_pages;$i++) {
                                     ?>
                                         <li class="item">
-                                            <a class="link" href="<?php echo $common_url.'?p='.$i; ?>">
+                                            <a class="link" href="<?php echo $common_url.'&p='.$i; ?>">
                                                 <?php echo $i; ?>
                                             </a>
                                         </li>
@@ -216,11 +277,10 @@
                                                 </li>
                                             <?php
                                             
-                                            
                                         } else {
                                             ?>
                                                 <li class="item">
-                                                    <a class="link" href="<?php echo $common_url.'?p='.($_REQUEST['p']+1); ?>">
+                                                    <a class="link" href="<?php echo $common_url.'&p='.($_REQUEST['p']+1); ?>">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"
                                                             viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -234,7 +294,7 @@
                                     } else {
                                         ?>
                                             <li class="item">
-                                                <a class="link" href="<?php echo $common_url.'?p=2'; ?>">
+                                                <a class="link" href="<?php echo $common_url.'&p=2'; ?>">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"
                                                         viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -256,7 +316,14 @@
 
                 <!-- sidebar start -->
                 <div class="col-lg-3 col-md-12 col-12">
+
+                <form action="" method="get">
+
                     <div class="collection-filter filter-drawer">
+                        <h6 class="heading_18">Search by name</h6>
+                        <div class="filter-widget mt-3">
+                            <input type="text" name="name" value="<?php if(isset($_GET['name'])) { echo $_GET['name']; } ?>" class="form-control" placeholder="search">
+                        </div>
                         <div class="filter-widget d-lg-none d-flex align-items-center justify-content-between">
                             <h5 class="heading_24">Filter By</h4>
                             <button type="button" class="btn-close text-reset filter-drawer-trigger d-lg-none"></button>
@@ -293,6 +360,25 @@
                             </div>
                             <div id="filter-collection" class="accordion-collapse collapse show">
                                 <ul class="filter-lists list-unstyled mb-0">
+                                    <li class="filter-item">
+                                        <label class="filter-label">
+                                            <input
+                                             type="checkbox"
+                                             name="category"
+                                             value=""
+                                                <?php 
+                                                    if(isset($_GET['category'])) {
+                                                        if($_GET['category'] == '')
+                                                         {echo 'checked';}
+                                                    } else {
+                                                        echo 'checked';
+                                                    }
+                                                 ?>
+                                            /> 
+                                            <span class="filter-checkbox rounded me-2"></span>
+                                            <span class="filter-text">All Categories</span>
+                                        </label>
+                                    </li>
                                     <?php 
                                         $q = $pdo->prepare("SELECT * FROM categories ORDER BY item_order ASC");
                                         $q->execute();
@@ -301,7 +387,18 @@
                                             ?>
                                                 <li class="filter-item">
                                                     <label class="filter-label">
-                                                        <input type="checkbox" />
+                                                        <input 
+                                                            type="checkbox" 
+                                                            name="category"
+                                                            value="<?php echo $row['id']; ?>" 
+                                                            <?php 
+                                                                if(isset($_GET['category'])) {
+                                                                    if($_GET['category'] == $row['id']) {
+                                                                        echo 'checked';
+                                                                    }
+                                                                } 
+                                                            ?> 
+                                                        />
                                                         <span class="filter-checkbox rounded me-2"></span>
                                                         <span class="filter-text"><?php echo $row['name'] ?></span>
                                                     </label>
@@ -328,14 +425,21 @@
                                 <ul class="filter-lists list-unstyled mb-0">
                                     <li class="filter-item">
                                         <label class="filter-label">
-                                            <input type="checkbox" />
+                                            <input type="checkbox" name="availability" value="" <?php if(isset($_GET['availability'])) {if($_GET['availability'] == '') {echo 'checked';}} else {echo 'checked';} ?>>
+                                            <span class="filter-checkbox rounded me-2"></span>
+                                            <span class="filter-text">All Types</span>
+                                        </label>
+                                    </li>
+                                    <li class="filter-item">
+                                        <label class="filter-label">
+                                            <input type="checkbox" name="availability" value="in-stock" <?php if(isset($_GET['availability'])) {if($_GET['availability'] == 'in-stock') {echo 'checked';}} ?>>
                                             <span class="filter-checkbox rounded me-2"></span>
                                             <span class="filter-text">In Stock</span>
                                         </label>
                                     </li>
                                     <li class="filter-item">
                                         <label class="filter-label">
-                                            <input type="checkbox" />
+                                            <input type="checkbox" name="availability" value="out-of-stock" <?php if(isset($_GET['availability'])) {if($_GET['availability'] == 'out-of-stock') {echo 'checked';}} ?>>
                                             <span class="filter-checkbox rounded me-2"></span>
                                             Out of Stock
                                         </label>
@@ -355,86 +459,25 @@
                                     </svg>
                                 </span>
                             </div>
+
+
                             <div id="filter-price" class="accordion-collapse collapse show">
                                 <div class="filter-price d-flex align-items-center justify-content-between">
                                     <div class="filter-field">
-                                        <input class="field-input" type="number" placeholder="৳0" min="0"
-                                            max="2000.00">
+                                        <input class="field-input" type="number" min="0" name="min_price" value="<?php if(isset($_GET['min_price'])){echo $_GET['min_price'];} ?>" >
                                     </div>
                                     <div class="filter-separator px-3">To</div>
                                     <div class="filter-field">
-                                        <input class="field-input" type="number" min="0" placeholder="৳595.00"
-                                            max="2000.00">
+                                        <input class="field-input" type="number" min="0" name="max_price" value="<?php if(isset($_GET['max_price'])){echo $_GET['max_price'];} ?>" >
                                     </div>
                                 </div>
                             </div>
+
+
                         </div>
-                        
+
                         <div class="filter-widget">
-                            <div class="filter-header faq-heading heading_18 d-flex align-items-center justify-content-between border-bottom"
-                                data-bs-toggle="collapse" data-bs-target="#filter-vendor">
-                                Brand
-                                <span class="faq-heading-icon">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round" class="icon icon-down">
-                                        <polyline points="6 9 12 15 18 9"></polyline>
-                                    </svg>
-                                </span>
-                            </div>
-                            <div id="filter-vendor" class="accordion-collapse collapse show">
-                                <ul class="filter-lists list-unstyled mb-0">
-                                    <li class="filter-item">
-                                        <label class="filter-label">
-                                            <input type="checkbox" name="brand" value="Bynd">
-                                            <span class="filter-checkbox rounded me-2"></span>
-                                            <span class="filter-text">Bynd</span>
-                                        </label>
-                                    </li>
-                                    <li class="filter-item">
-                                        <label class="filter-label">
-                                            <input type="checkbox" name="brand" value="Huemor">
-                                            <span class="filter-checkbox rounded me-2"></span>
-                                            Huemor
-                                        </label>
-                                    </li>
-                                    <li class="filter-item">
-                                        <label class="filter-label">
-                                            <input type="checkbox" name="brand" value="Hubspot">
-                                            <span class="filter-checkbox rounded me-2"></span>
-                                            Hubspot
-                                        </label>
-                                    </li>
-                                    <li class="filter-item">
-                                        <label class="filter-label">
-                                            <input type="checkbox" name="brand" value="Infosolutions">
-                                            <span class="filter-checkbox rounded me-2"></span>
-                                            Infosolutions
-                                        </label>
-                                    </li>
-                                    <li class="filter-item">
-                                        <label class="filter-label">
-                                            <input type="checkbox" name="brand" value="Ideo">
-                                            <span class="filter-checkbox rounded me-2"></span>
-                                            Ideo
-                                        </label>
-                                    </li>
-                                    <li class="filter-item">
-                                        <label class="filter-label">
-                                            <input type="checkbox" name="brand" value="Codal">
-                                            <span class="filter-checkbox rounded me-2"></span>
-                                            Codal
-                                        </label>
-                                    </li>
-                                    <li class="filter-item">
-                                        <label class="filter-label">
-                                            <input type="checkbox" name="brand" value="Salesforce">
-                                            <span class="filter-checkbox rounded me-2"></span>
-                                            Salesforce
-                                        </label>
-                                    </li>
-                                </ul>
-                            </div>
+                            <button type="submit" class="btn btn-primary">Apply Filter</button>
                         </div>
                         
                         <!-- Add this script at the end of your HTML -->
@@ -467,6 +510,7 @@
                         </script>
 
                     </div>
+                </form> 
                 </div>
                 <!-- sidebar end -->
             </div>

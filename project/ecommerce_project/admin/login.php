@@ -58,6 +58,10 @@
     <div class="container-login">
         <main class="form-signin w-100 m-auto">
             <h1 class="text-center">Admin Login</h1>
+            <div>
+                <span class="d-block">Email: ar@gmail.com</span>
+                <span class="d-block">Password: 12345</span>
+            </div>
             <form action=" " method="post">
                 <div class="form-floating">
                     <input type="text" name="email" class="form-control" id="" placeholder="name@example.com" autocomplete="off">
