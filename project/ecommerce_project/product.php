@@ -17,6 +17,46 @@ $statement = $pdo->prepare("SELECT * FROM categories WHERE id=?");
 $statement->execute([$product_data['category_id']]);
 $category_data = $statement->fetch(PDO::FETCH_ASSOC);
 
+?>
+
+<?php
+
+    if(isset($_POST['form_add_to_cart'])){
+
+    try {
+
+        $statement = $pdo->prepare("SELECT * FROM products WHERE id=?");
+        $statement->execute([$_POST['id']]);
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        if($result['quantity'] == 0) {
+            throw new Exception("Product is out of stock.");
+        }
+        
+            if(!isset($_SESSION['product_id'])){
+                $_SESSION['product_id'][1] = $_POST['id'];
+                $_SESSION['product_quantity'][1] = 1;
+            }else{
+                $key = array_search($_POST['id'], $_SESSION['product_id']);
+                if($key !== false){
+                    $_SESSION['product_quantity'][$key] += 1;
+                }else{
+                    $key = count($_SESSION['product_id'])+1;
+                    $_SESSION['product_id'][$key] = $_POST['id'];
+                    $_SESSION['product_quantity'][$key] = 1;
+                }
+            }
+                                                                                                            
+       $_SESSION['success_message'] = "Product added to cart successfuly";
+       header("location: ".BASE_URL."product.php?slug=".$product_data['slug']);
+       exit;
+        
+    } catch (Exception $e) {
+         $_SESSION['error_message'] = $e->getMessage();
+        header("location: ".BASE_URL."product.php?slug=".$product_data['slug']);
+        exit;
+    }
+
+}
 
 ?>
 
@@ -280,9 +320,12 @@ $category_data = $statement->fetch(PDO::FETCH_ASSOC);
                                 <img class="primary-img" src="<?php echo BASE_URL;?>uploads/<?php echo $row['featured_photo']; ?>" alt="">
                             </a>
 
-                            <div class="product-card-action product-card-action-2">
-                                <a href="#" class="addtocart-btn btn-primary">ADD TO CART</a>
-                            </div>
+                            <form action="" method="post">
+                                <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+                                <div class="product-card-action product-card-action-2">
+                                    <button type="submit" name="form_add_to_cart" class="addtocart-btn btn-primary">ADD TO CART</button>
+                                </div>
+                            </form>
 
                             <a href="<?php echo BASE_URL;?>wishlist.php" class="wishlist-btn card-wishlist">
                                 <i class="far fa-heart" style="color:#000;font-size:20px;"></i>

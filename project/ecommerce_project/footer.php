@@ -120,6 +120,25 @@
             }
         ?>
 
+         <?php
+            if(isset($_SESSION['error_message'])){
+
+            ?>
+
+                <script>
+                    Swal.fire({
+                    title: 'Error!',
+                    text:  '<?php echo $_SESSION['error_message']; ?>',
+                    icon: 'error',
+                    // confirmButtonText: 'Cool'
+                    })
+                </script>
+
+            <?php
+            }
+            unset($_SESSION['error_message']);
+        ?>
+
         <?php 
             if(isset($_SESSION["success_message"])){
 
